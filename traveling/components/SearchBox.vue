@@ -1,0 +1,270 @@
+<template>
+  <div>
+    <div class="tm-section tm-bg-img" id="tm-section-1">
+      <div class="tm-bg-white ie-container-width-fix-2">
+        <div class="container ie-h-align-center-fix">
+          <div class="row">
+            <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
+             <div class="form-group tm-form-element tm-form-element-100">
+                    <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
+                    <input
+                      v-model="city"
+                      name="city"
+                      type="text"
+                      class="form-control text-center"
+                      id="city"
+                      placeholder="Type your city"
+                    />
+                  </div>
+                   <button
+                      @click.prevent="searhCity"
+                      type="submit"
+                      class="btn btn-primary tm-btn-search"
+                    >Search city</button>
+              <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
+                <div class="form-row tm-search-form-row">
+
+                  <div class="form-group tm-form-element tm-form-element-100">
+                    <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
+                    <input
+                      v-model="location"
+                      name="location"
+                      type="text"
+                      class="form-control"
+                      id="location"
+                      placeholder="Type your destination..."
+                    />
+                  </div>
+                  <!--  <div>   <HotelDatePicker />
+                  </div>-->
+                  <div class="form-group tm-form-element tm-form-element-50">
+                    <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
+                    <input
+                      v-model="checkIn"
+                      name="check-in"
+                      type="date"
+                      class="form-control"
+                      id="inputCheckIn"
+                      placeholder="Check In"
+                    />
+                  </div>
+                  <div class="form-group tm-form-element tm-form-element-50">
+                    <input
+                      v-model="nights"
+                      name="nights"
+                      type="number"
+                      class="form-control"
+                      id="inputNights"
+                      placeholder="Your nights"
+                    />
+                  </div>
+                </div>
+                <div class="form-row tm-search-form-row">
+                  <div class="form-group tm-form-element tm-form-element-2">
+                    <select
+                      name="adult"
+                      class="form-control tm-select"
+                      id="adult"
+                      v-model="adultsSelected"
+                    >
+                      <option value>
+                        <i class="fa fa-2x fa-user tm-form-element-icon"></i> Adults
+                      </option>
+                      <option v-for="item in listNumber" :key="item.id">{{item.number}}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group tm-form-element tm-form-element-2">
+                    <select
+                      name="Rooms"
+                      class="form-control tm-select"
+                      id="Rooms"
+                      v-model="roomsSelected"
+                    >
+                      <option value>
+                        <i class="fa fa-2x fa-bed tm-form-element-icon"></i> Rooms
+                      </option>
+                      <option v-for="item in listNumber" :key="item.id">{{item.number}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group tm-form-element tm-form-element-2">
+                    <button
+                      @click.prevent="searchHotel"
+                      type="submit"
+                      class="btn btn-primary tm-btn-search"
+                    >Check Availability</button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Introduction></Introduction>
+
+    <Porfolio v-show="searchHotel"
+      v-for="item in hotels"
+      :key="item.id"
+      :photo="item.photo"
+      :name="item.name"
+      :subcategory_type="item.subcategory_type"
+      :location_string="item.location_string"
+      :url="item.url"
+      :num_reviews="item.num_reviews"
+      :votes="item.votes"
+      :imgT="item.imgT"
+      :price="item.price"
+      @save="saveToFavorites(item)"
+    ></Porfolio>
+  </div>
+</template>
+
+<script>
+//import HotelDatePicker from 'vue-hotel-datepicker'
+import Swal from 'sweetalert2'
+import Porfolio from "@/partials/Porfolio";
+import Introduction from '@/components/Introduction'
+
+//import moment from 'moment'
+//Vue.prototype.moment = moment
+
+export default {
+  data() {
+    return {
+      city:"",
+      location: "",
+      checkIn: "",
+      nights: "",
+      adultsSelected: "",
+      childrensSelected: "",
+      roomsSelected: "",
+
+      listNumber: [
+        { id: 1, number: 1, value: "1" },
+        { id: 2, number: 2, value: "2" },
+        { id: 3, number: 3, value: "3" },
+        { id: 4, number: 4, value: "4" },
+        { id: 5, number: 5, value: "5" },
+        { id: 6, number: 6, value: "6" },
+        { id: 7, number: 7, value: "7" },
+        { id: 8, number: 8, value: "8" },
+        { id: 9, number: 9, value: "9" },
+        { id: 10, number: 10, value: "10" }
+      ],
+      hotels: [
+        {
+          photo: "",
+          name: "",
+          subcategory_type: "",
+          location_string: "",
+          url: "",
+          num_reviews: "",
+          votes: "",
+          imgT: "",
+          price: ""
+        },
+          {
+          photo: "",
+          name: "soy el hotel de prueba ",
+          subcategory_type: "hotel",
+          location_string: "malaga",
+          url: "",
+          num_reviews: "237",
+          votes: "egeage",
+          imgT: "ge",
+          price: "78"
+        },
+
+      ],
+    };
+  },
+
+  methods: {
+
+    async searhCity(){
+    let URL1 = `https://tripadvisor1.p.rapidapi.com/locations/search?location_id=1&limit=30&sort=relevance&offset=0&lang=en_US&currency=USD&units=km&query=${this.city}`;
+
+      try {
+        let response = await this.$axios.get(URL1,  {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
+            "x-rapidapi-key":
+              "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
+          }
+        } );
+        console.log(response.data);
+        this.location = response.data.data[0].result_object.location_id
+
+        } catch (err) {
+          console.log(err.response.data.error);
+        }
+
+    },
+    async searchHotel() {
+       let checkInDate = this.$moment(this.checkIn, 'DD-MM-YYYY', true).format('YYYY-MM-DD')
+
+      let URL = `https://tripadvisor1.p.rapidapi.com/hotels/list?lang=en_ES&location_id=${this.location}&adults=${this.adultsSelected}&checkin=${this.checkInDate}&rooms=${this.roomsSelected}&nights=${this.nights}`;
+
+      try {
+        let response = await this.$axios.get(URL, {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
+            "x-rapidapi-key":
+              "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
+          }
+        });
+        console.log(response.data);
+        this.hotels = response.data.data;
+       /*  this.hotels.imgT = response.data.data.awards[0].images.large
+        console.log(this.imgT = response.data.data.awards[0].images.large)
+
+        console.log( this.hotels = response.data.data[0].photo.images.medium.url)
+        console.log (this.hotels.photo = response.data.data[0].photo.images.medium.url)
+        console.log(this.hotels.photo = response.data.data[index].photo.images.medium.url) */
+      } catch (err) {
+        console.log(err.response.data.error);
+      }
+    },
+   async saveToFavorites(item){
+        let config = {
+              headers: {
+                'Authorization': `Bearer ${window.localStorage.getItem("token")}`
+              }
+            }
+        let newFavorite = [
+          {
+          name : this.name,
+          subcategory_type : this.subcategory_type,
+          location_string : this.location_string,
+          url : this.url,
+          num_reviews : this.num_reviews,
+          votes: this.votes,
+          imgT : this.imgT,
+          price: this.price
+          }
+        ]
+        try {
+          let response = await this.$axios.post("http://localhost:8082/favorites", newFavorite, config)
+          this.$router.push('/myfavorites')
+        } catch(err) {
+          console.log('no se conecta')
+             Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Debes estar autenticado para guardar!',
+          })
+          this.$router.push('/login')
+        }
+    }
+  },
+  components: {
+    // HotelDatePicker
+    Porfolio,
+    Introduction
+  }
+};
+</script>
