@@ -15,10 +15,11 @@ export default {
    data(){
     return{
          menu: [
-        {id: 1, path: "/", name: "HOTELS"},
-        {id: 2, path: "/flights", name: "FLIGHTS"},
-        {id: 3, path: "/restaurants", name: "RESTAURANTS"},
-        {id: 4, path: "/contact", name: "CONTACTS US"},
+        {id: 1, path: "/", name: "HOME", meta: { isPrivate: false }},
+        {id: 2, path: "/hotels", name: "HOTELS", meta: { isPrivate: false }},
+        {id: 3, path: "/flights", name: "FLIGHTS", meta: { isPrivate: false }},
+        //{id: 4, path: "/restaurants", name: "RESTAURANTS", meta: { isPrivate: false }},
+        {id: 4, path: "/contact", name: "CONTACTS US", meta: { isPrivate: false } },
         {id: 5, path: "/myfavorites", name: "MY FAVORITES",  meta: { isPrivate: true }},
       ]
     }

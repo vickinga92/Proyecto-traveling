@@ -6,10 +6,13 @@
           <div class="row">
             <nuxt-link to="/" id="logo">
               <span>
-                <!-- <img alt=logo src="@/assets/logo.jpg" /> -->
-                TRAVELING
+               <img alt=logo src="@/assets/img/logo.png" />
+               <span>TRAVELING</span>
               </span>
             </nuxt-link>
+            <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+             </button>
             <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item" v-for="item in menu" :key="item.id">

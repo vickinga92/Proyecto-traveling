@@ -1,19 +1,24 @@
 <template>
-  <div class="tm-section-2">
+
+  <div class="tm-main-content" id="top">
+<!--             <div class="tm-top-bar-bg"></div>
+ -->  <div class="tm-section-2">
     <div class="container">
       <div class="row">
         <div class="col text-center">
-          <h2 class="tm-section-title">SEARCH YOUR FAVORITE HOTEL</h2>
-          <p class="tm-color-white tm-section-subtitle">Save your favorites</p>
-          <a href="#" class="tm-color-white tm-btn-white-bordered">Subscribe Newletters</a>
-        </div>
+          <h2 class="tm-section-title">{{title}}</h2>
+          <p class="tm-color-white tm-section-subtitle">{{subtitle}}</p>
+          </div>
       </div>
     </div>
   </div>
+    </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props:["title", "subtitle"]
+};
 </script>
 
 <style>

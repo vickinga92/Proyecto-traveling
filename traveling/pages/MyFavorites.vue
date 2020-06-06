@@ -1,6 +1,8 @@
 <template>
-<div>
- <Porfolio
+  <div>
+     <div class="tm-top-bar-bg"></div>
+    <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
+    <Porfolio
       v-for="item in hotels"
       :key="item.id"
       :photo="item.photo"
@@ -13,15 +15,17 @@
       :imgT="item.imgT"
       :price="item.price"
     ></Porfolio>
+  </div>
 
-</div>
 </template>
 
 <script>
-import Porfolio from '@/partials/Porfolio'
+import Porfolio from "@/partials/Porfolio";
+import Introduction from "@/components/Introduction";
+
 export default {
-  data(){
-    return{
+  data() {
+    return {
       hotels: [
         {
           photo: "",
@@ -35,25 +39,26 @@ export default {
           price: ""
         }
       ]
-    }
+    };
   },
-mounted() {
+  mounted() {
     this.getAllFavorites();
   },
 
   methods: {
     async getAllFavorites() {
-       let config = {
-              headers: {
-                'Authorization': `Bearer ${window.localStorage.getItem("token")}`
-              }
-            }
-      let newFavorite = [{
-
-      }];
+      let config = {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`
+        }
+      };
+      let newFavorite = [{}];
 
       try {
-        let response = await this.$axios.get("http://localhost:8082/favorites", config);
+        let response = await this.$axios.get(
+          "http://localhost:8082/favorites",
+          config
+        );
         console.log(response);
         this.hotels = response.data;
       } catch (err) {
@@ -61,12 +66,12 @@ mounted() {
       }
     }
   },
-  components:{
-  Porfolio
+  components: {
+    Introduction,
+    Porfolio
   }
-}
+};
 </script>
 
 <style>
-
 </style>

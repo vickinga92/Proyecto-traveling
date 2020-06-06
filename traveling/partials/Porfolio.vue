@@ -23,7 +23,7 @@
               </div>
               <div class="col-md-4">
                 <h3 class="tm-color-primary tm-article-title-1">{{name}}</h3>
-                <p>{{subcategory_type}}</p>
+                <p>{{subcategory_type}}-{{hotel_class}}</p>
                 <p>{{location_string}}</p>
                 <button  class="btn btn-success tm-btn-search"><a :href='"url(" + url + ")"' class="text-uppercase tm-color-primary tm-font-semibold"
                 ></a>Hotel info</button>
@@ -34,7 +34,7 @@
                 	<a
                   href="#"
                   class="img"
-                  :style='"background-image: url(" + imgT +");"'
+                  :style='"background-image: url(" + large +");"'
 						    ></a>
                 <div>PRICE {{price}}</div> <br>
                 <button @click.prevent="saveToFavorites"  class="btn btn-primary tm-btn-search">Save to Favorites</button>
@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  props: ["photo", "name", "subcategory_type", "location_string", "url", "num_reviews", "votes", "imgT", "price" ],
+  props: ["photo", "name", "subcategory_type","hotel_class", "location_string", "url", "num_reviews", "votes", "large", "price" ],
   methods:{
     saveToFavorites(){
       this.$emit("save")

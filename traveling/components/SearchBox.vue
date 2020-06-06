@@ -5,7 +5,10 @@
         <div class="container ie-h-align-center-fix">
           <div class="row">
             <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-             <div class="form-group tm-form-element tm-form-element-100">
+              <h2 class="tm-color-primary, text-center">CHOOSE YOUR DATES</h2>
+              <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
+                <div class="form-row tm-search-form-row">
+                  <div class="form-group tm-form-element tm-form-element-100">
                     <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
                     <input
                       v-model="city"
@@ -14,25 +17,6 @@
                       class="form-control text-center"
                       id="city"
                       placeholder="Type your city"
-                    />
-                  </div>
-                   <button
-                      @click.prevent="searhCity"
-                      type="submit"
-                      class="btn btn-primary tm-btn-search"
-                    >Search city</button>
-              <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
-                <div class="form-row tm-search-form-row">
-
-                  <div class="form-group tm-form-element tm-form-element-100">
-                    <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                    <input
-                      v-model="location"
-                      name="location"
-                      type="text"
-                      class="form-control"
-                      id="location"
-                      placeholder="Type your destination..."
                     />
                   </div>
                   <!--  <div>   <HotelDatePicker />
@@ -95,45 +79,44 @@
                     >Check Availability</button>
                   </div>
                 </div>
-
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <Introduction></Introduction>
+    <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
 
-    <Porfolio v-show="searchHotel"
+    <Porfolio
+      v-show="searchHotel"
       v-for="item in hotels"
       :key="item.id"
       :photo="item.photo"
       :name="item.name"
       :subcategory_type="item.subcategory_type"
+      :hotel_class="item.hotel_class"
       :location_string="item.location_string"
       :url="item.url"
       :num_reviews="item.num_reviews"
       :votes="item.votes"
-      :imgT="item.imgT"
+      :large="item.large"
       :price="item.price"
       @save="saveToFavorites(item)"
     ></Porfolio>
+
   </div>
 </template>
 
 <script>
 //import HotelDatePicker from 'vue-hotel-datepicker'
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import Porfolio from "@/partials/Porfolio";
-import Introduction from '@/components/Introduction'
-
-//import moment from 'moment'
-//Vue.prototype.moment = moment
+import Introduction from "@/components/Introduction";
 
 export default {
   data() {
     return {
-      city:"",
+      city: "",
       location: "",
       checkIn: "",
       nights: "",
@@ -158,107 +141,95 @@ export default {
           photo: "",
           name: "",
           subcategory_type: "",
+          hotel_class: "",
           location_string: "",
           url: "",
           num_reviews: "",
           votes: "",
-          imgT: "",
+          large: "",
           price: ""
         },
-          {
+        {
           photo: "",
           name: "soy el hotel de prueba ",
           subcategory_type: "hotel",
+          hotel_class: "5.0",
           location_string: "malaga",
           url: "",
           num_reviews: "237",
           votes: "egeage",
-          imgT: "ge",
+          large: "ge",
           price: "78"
-        },
-
-      ],
+        }
+      ]
     };
   },
 
   methods: {
-
-    async searhCity(){
-    let URL1 = `https://tripadvisor1.p.rapidapi.com/locations/search?location_id=1&limit=30&sort=relevance&offset=0&lang=en_US&currency=USD&units=km&query=${this.city}`;
-
-      try {
-        let response = await this.$axios.get(URL1,  {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key":
-              "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
-          }
-        } );
-        console.log(response.data);
-        this.location = response.data.data[0].result_object.location_id
-
-        } catch (err) {
-          console.log(err.response.data.error);
-        }
-
-    },
     async searchHotel() {
-       let checkInDate = this.$moment(this.checkIn, 'DD-MM-YYYY', true).format('YYYY-MM-DD')
-
-      let URL = `https://tripadvisor1.p.rapidapi.com/hotels/list?lang=en_ES&location_id=${this.location}&adults=${this.adultsSelected}&checkin=${this.checkInDate}&rooms=${this.roomsSelected}&nights=${this.nights}`;
+      let config = {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
+          "x-rapidapi-key": "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
+        }
+      };
+      const URL = `https://tripadvisor1.p.rapidapi.com/locations/search?location_id=1&limit=30&sort=relevance&offset=0&lang=en_ES&currency=EUR&units=km&query=${this.city}`;
 
       try {
-        let response = await this.$axios.get(URL, {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
-            "x-rapidapi-key":
-              "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
-          }
-        });
+        let city = await this.$axios.get(URL, config);
+        console.log(city.data);
+        this.location = city.data.data[0].result_object.location_id;
+      } catch (err) {
+        console.log(err.city.data.error);
+      }
+      let checkInDate = this.$moment(this.checkIn, "DD-MM-YYYY", true).format(
+        "YYYY-MM-DD"
+      );
+      const URL1 = `https://tripadvisor1.p.rapidapi.com/hotels/list?currency=EUR&lang=en_ES&location_id=${this.location}&adults=${this.adultsSelected}&checkin=${this.checkInDate}&rooms=${this.roomsSelected}&nights=${this.nights}`;
+
+      try {
+        let response = await this.$axios.get(URL1, config);
         console.log(response.data);
         this.hotels = response.data.data;
-       /*  this.hotels.imgT = response.data.data.awards[0].images.large
-        console.log(this.imgT = response.data.data.awards[0].images.large)
-
-        console.log( this.hotels = response.data.data[0].photo.images.medium.url)
-        console.log (this.hotels.photo = response.data.data[0].photo.images.medium.url)
-        console.log(this.hotels.photo = response.data.data[index].photo.images.medium.url) */
+        //  this.hotels = response.data.data.awards[0].images.large  imagen de excelencia tripadvisor
+        //  this.hotels = response.data.data.photo.images.medium.url  imagen del hotel
       } catch (err) {
         console.log(err.response.data.error);
       }
     },
-   async saveToFavorites(item){
-        let config = {
-              headers: {
-                'Authorization': `Bearer ${window.localStorage.getItem("token")}`
-              }
-            }
-        let newFavorite = [
-          {
-          name : this.name,
-          subcategory_type : this.subcategory_type,
-          location_string : this.location_string,
-          url : this.url,
-          num_reviews : this.num_reviews,
-          votes: this.votes,
-          imgT : this.imgT,
-          price: this.price
-          }
-        ]
-        try {
-          let response = await this.$axios.post("http://localhost:8082/favorites", newFavorite, config)
-          this.$router.push('/myfavorites')
-        } catch(err) {
-          console.log('no se conecta')
-             Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Debes estar autenticado para guardar!',
-          })
-          this.$router.push('/login')
+
+    async saveToFavorites(item) {
+      let config = {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
+      };
+      let newFavorite = [
+        {
+          name: this.name,
+          subcategory_type: this.subcategory_type,
+          location_string: this.location_string,
+          url: this.url,
+          num_reviews: this.num_reviews,
+          votes: this.votes,
+          large: this.large,
+          price: this.price
+        }
+      ];
+      try {
+        let response = await this.$axios.post(
+          "http://localhost:8082/favorites", newFavorite, config);
+        this.$router.push("/myfavorites");
+      } catch (err) {
+        console.log("no se conecta");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Debes estar autenticado para guardar!"
+        });
+        this.$router.push("/login");
+      }
     }
   },
   components: {
