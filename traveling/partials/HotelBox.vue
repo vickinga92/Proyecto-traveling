@@ -18,26 +18,20 @@
               	<a
                   href="#"
                   class="img"
-                  :style='"background-image: url(" + photo +");"'
-						    ></a>
+						    ><img :src="photo" alt=""></a>
               </div>
               <div class="col-md-4">
                 <h3 class="tm-color-primary tm-article-title-1">{{name}}</h3>
                 <p>{{subcategory_type}}-{{hotel_class}}</p>
                 <p>{{location_string}}</p>
-                <button  class="btn btn-success tm-btn-search"><a :href='"url(" + url + ")"' class="text-uppercase tm-color-primary tm-font-semibold"
-                ></a>Hotel info</button>
+
               </div>
               <div class="col-md-4">
                 <p>reviews {{num_reviews}}</p>
-                <p>votes {{votes}}</p>
-                	<a
-                  href="#"
-                  class="img"
-                  :style='"background-image: url(" + large +");"'
-						    ></a>
+                <p>votes {{helpful_votes}}</p>
+
                 <div>PRICE {{price}}</div> <br>
-                <button @click.prevent="saveToFavorites"  class="btn btn-primary tm-btn-search">Save to Favorites</button>
+                   <button  @click.prevent="saveToFavorites"  class="btn btn-primary tm-btn-search">Save to Favorites</button>
               </div>
             </div>
           </div>
@@ -49,11 +43,17 @@
 
 <script>
 export default {
-  props: ["photo", "name", "subcategory_type","hotel_class", "location_string", "url", "num_reviews", "votes", "large", "price" ],
+  props: ["photo", "name", "subcategory_type","hotel_class", "location_string", "num_reviews", "helpful_votes", "price" ],
+  data(){
+    return{
+
+    }
+  },
   methods:{
     saveToFavorites(){
       this.$emit("save")
-    }
+    },
+
   }
 };
 </script>

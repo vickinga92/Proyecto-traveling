@@ -1,32 +1,31 @@
 const mongoose = require('mongoose')
 const express = require('express')
+const {json} = require('express')
 const router = express.Router()
 const Favorites = require('../models/favorites')
-//middleware configurable para autenticación
 const mustAuth = require('../middlewares/mustAuth')
 
 router.route('/favorites')
   .get(mustAuth(), async (req, res) => {
-    //let filters = {id: req.user.uid}
-    let itemList = await Favorites.find().exec()
+   // let filters = {id: req.user._id}
+    let favoriteList = await Favorites.find().exec()
 
-    res.json(itemList)
+    res.json(favoriteList)
   })
    .post(mustAuth(), async (req, res) => {
-    let data = req.body
+     let data = req.body
     try{
-      let newFavorite = {} /* [{
-        //id: data.user.uid,
+      let newFavorite =  {
+        //location_id : data.location_id,
+        photo: data.photo,
         name : data.name,
         subcategory_type : data.subcategory_type,
+        hotel_class: data.hotel_class,
         location_string : data.location_string,
-        url : data.url,
         num_reviews : data.num_reviews,
-        votes: data.votes,
-        imgT : data.imgT,
+        helpful_votes: data.helpful_votes,
         price: data.price
-      }] */
-    console.info(data)
+      }
 
       let favoriteInMongo = await new Favorites(newFavorite).save()
 
@@ -53,9 +52,9 @@ router.route('/favorites/:id')
 
   .delete(mustAuth(), async (req, res) => {
 
-    let searchId = req.params.id
+    let searchId = req.params.location_id
 
-    let foundItem = await Favorites.findOneAndDelete({_id: searchId}).exec()
+    let foundItem = await Favorites.findOneAndDelete({location_id: searchId}).exec()
 
     if (!foundItem) {
       res.status(404).json({ 'message': 'El elemento que intentas eliminar no existe' })

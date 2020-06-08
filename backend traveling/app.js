@@ -6,12 +6,9 @@ const bearerToken = require('express-bearer-token')
 const cors = require('cors')
 const database = require('./modules/database')
 const firebase = require('firebase')
-//const firebaseConfig = require('./modules/firebase')
 const config = require('./modules/config')
 
 firebase.initializeApp(config.firebaseConfig);
-
-
 
 //instancia de express
 

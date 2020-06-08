@@ -8,6 +8,11 @@ async function createUserFirebase(email, password){
   let response = await firebase.auth().createUserWithEmailAndPassword(email, password)
   return response
 }
+/* async function sendEmailVerification(email){
+  let sendVerification = await firebase.auth().sendEmailVerification(email)
+  return sendVerification
+
+} */
 
 router.route('/users')
   .post(async (req, res)=>{

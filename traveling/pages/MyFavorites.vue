@@ -2,57 +2,64 @@
   <div>
      <div class="tm-top-bar-bg"></div>
     <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
-    <Porfolio
-      v-for="item in hotels"
-      :key="item.id"
+    <FavoritesHotels
+      v-for="item in favoriteshotels"
+      :key="item.location_id"
       :photo="item.photo"
       :name="item.name"
       :subcategory_type="item.subcategory_type"
       :location_string="item.location_string"
-      :url="item.url"
       :num_reviews="item.num_reviews"
-      :votes="item.votes"
-      :imgT="item.imgT"
+      :helpful_votes="item.helpful_votes"
       :price="item.price"
-    ></Porfolio>
+      @delete="deleteFavorite"
+    ></FavoritesHotels>
   </div>
 
 </template>
 
 <script>
-import Porfolio from "@/partials/Porfolio";
+import FavoritesHotels from "@/partials/FavoritesHotels";
 import Introduction from "@/components/Introduction";
 
 export default {
   data() {
     return {
-      hotels: [
-        {
-          photo: "",
+      favoriteshotels: [
+          {
+         location_id:"",
+         photo:{
+            images:{
+              medium:{
+                url:""
+                }}},
           name: "",
           subcategory_type: "",
+          hotel_class: "",
           location_string: "",
-          url: "",
           num_reviews: "",
-          votes: "",
-          imgT: "",
+          helpful_votes:{photo:{
+            helpful_votes:""
+          }},
           price: ""
-        }
+        },
       ]
     };
   },
   mounted() {
     this.getAllFavorites();
+
   },
 
   methods: {
+
     async getAllFavorites() {
       let config = {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
       };
-      let newFavorite = [{}];
+      let newFavorite = {};
 
       try {
         let response = await this.$axios.get(
@@ -64,11 +71,30 @@ export default {
       } catch (err) {
         console.log("no se conecta");
       }
+    },
+   async deleteFavorite(){
+        let config = {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`
+        }
+      };
+      let newFavorite = {};
+
+      try {
+        let response = await this.$axios.delete(
+          "http://localhost:8082//favorites/:id",
+          config
+        );
+        console.log(response);
+        this.hotels = response.data;
+      } catch (err) {
+        console.log("no se conecta");
+      }
     }
   },
   components: {
     Introduction,
-    Porfolio
+    FavoritesHotels
   }
 };
 </script>

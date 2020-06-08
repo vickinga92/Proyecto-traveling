@@ -87,22 +87,19 @@
     </div>
     <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
 
-    <Porfolio
-      v-show="searchHotel"
+    <HotelBox
       v-for="item in hotels"
-      :key="item.id"
-      :photo="item.photo"
+      :key="item.location_id"
+      :photo="item.photo.images.medium.url"
       :name="item.name"
       :subcategory_type="item.subcategory_type"
       :hotel_class="item.hotel_class"
       :location_string="item.location_string"
-      :url="item.url"
       :num_reviews="item.num_reviews"
-      :votes="item.votes"
-      :large="item.large"
+      :helpful_votes="item.photo.helpful_votes"
       :price="item.price"
       @save="saveToFavorites(item)"
-    ></Porfolio>
+    ></HotelBox>
 
   </div>
 </template>
@@ -110,7 +107,7 @@
 <script>
 //import HotelDatePicker from 'vue-hotel-datepicker'
 import Swal from "sweetalert2";
-import Porfolio from "@/partials/Porfolio";
+import HotelBox from "@/partials/HotelBox";
 import Introduction from "@/components/Introduction";
 
 export default {
@@ -137,35 +134,48 @@ export default {
         { id: 10, number: 10, value: "10" }
       ],
       hotels: [
-        {
-          photo: "",
+         {
+       // location_id:"",
+         photo:{
+            images:{
+              medium:{
+                url:""
+                }}},
           name: "",
           subcategory_type: "",
           hotel_class: "",
           location_string: "",
-          url: "",
           num_reviews: "",
-          votes: "",
-          large: "",
+          helpful_votes:{photo:{
+            helpful_votes:""
+          }},
           price: ""
         },
-        {
-          photo: "",
+         {
+        //  location_id:"1",
+          photo:{
+            images:{
+              medium:{
+                url:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hotelpasarela.com%2Fes%2F&psig=AOvVaw0SsBZiDRm1_Cjaw7IE0YhQ&ust=1591702671375000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCfwtuQ8ukCFQAAAAAdAAAAABAI"}
+                }
+              },
           name: "soy el hotel de prueba ",
           subcategory_type: "hotel",
           hotel_class: "5.0",
           location_string: "malaga",
-          url: "",
           num_reviews: "237",
-          votes: "egeage",
-          large: "ge",
+          helpful_votes:{photo:{
+            helpful_votes:"98"
+          }},
           price: "78"
         }
+
       ]
     };
   },
 
   methods: {
+
     async searchHotel() {
       let config = {
         method: "GET",
@@ -192,8 +202,7 @@ export default {
         let response = await this.$axios.get(URL1, config);
         console.log(response.data);
         this.hotels = response.data.data;
-        //  this.hotels = response.data.data.awards[0].images.large  imagen de excelencia tripadvisor
-        //  this.hotels = response.data.data.photo.images.medium.url  imagen del hotel
+
       } catch (err) {
         console.log(err.response.data.error);
       }
@@ -205,21 +214,25 @@ export default {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
       };
-      let newFavorite = [
+
+      let newFavorite =
         {
-          name: this.name,
-          subcategory_type: this.subcategory_type,
-          location_string: this.location_string,
-          url: this.url,
-          num_reviews: this.num_reviews,
-          votes: this.votes,
-          large: this.large,
-          price: this.price
+        //  location_id: item.location_id,
+          photo:item.photo,
+          name: item.name,
+          subcategory_type: item.subcategory_type,
+          hotel_class:item.hotel_class,
+          location_string: item.location_string,
+          num_reviews: item.num_reviews,
+          helpful_votes: item.helpful_votes,
+          price: item.price
         }
-      ];
+        console.log('<<<<<<<', newFavorite)
+      ;
       try {
         let response = await this.$axios.post(
           "http://localhost:8082/favorites", newFavorite, config);
+  console.log('respuesta', response.data)
         this.$router.push("/myfavorites");
       } catch (err) {
         console.log("no se conecta");
@@ -234,7 +247,7 @@ export default {
   },
   components: {
     // HotelDatePicker
-    Porfolio,
+    HotelBox,
     Introduction
   }
 };

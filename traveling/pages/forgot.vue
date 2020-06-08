@@ -37,6 +37,7 @@ export default {
       try {
         let response = await this.$axios.post(
           "http://localhost:8082/auth/forgotten-password", sendEmail);
+
             this.$router.push("/login");
       } catch (err) {
         console.log(err.response.data.error);

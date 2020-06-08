@@ -72,8 +72,7 @@ export default {
       };
 
       const validatedEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(
-        this.email
-      );
+        this.email);
       if (
         loginData.email !== "" &&
         loginData.password !== "" &&
@@ -82,8 +81,8 @@ export default {
         try {
           let response = await this.$axios.post(
             "http://localhost:8082/auth/login",
-            loginData
-          );
+            loginData);
+
           window.localStorage.setItem("token", response.data.token);
           this.checkAuth();
           this.$router.push("/");
@@ -103,7 +102,8 @@ export default {
         title: "Oops...",
         text: "Debe incluir un email válido!"
       });
-    }
-  }
+    },
+
+  },
 };
 </script>

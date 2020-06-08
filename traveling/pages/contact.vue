@@ -1,5 +1,5 @@
 <template>
-<RapidContact></RapidContact>
+<RapidContact ></RapidContact>
 </template>
 
 <script>

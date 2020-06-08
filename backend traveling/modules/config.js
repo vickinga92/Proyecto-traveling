@@ -23,7 +23,9 @@ const firebaseConfig = {
   storageBucket: process.env.FB_STORAGE_BUCKET || envs.FB_STORAGE_BUCKET,
   messagingSenderId: process.env.FB_MESSAGING_SENDER_ID || envs.FB_MESSAGING_SENDER_ID,
   appId: process.env.FB_APP_ID || envs.FB_APP_ID,
-  measurementId: process.env.FB_MEASUREMENT_ID || envs.FB_MEASUREMENT_ID
+  measurementId: process.env.FB_MEASUREMENT_ID || envs.FB_MEASUREMENT_ID,
+  credentialsMessage: process.env.GOOGLE_APPLICATION_CREDENTIALS || envs.GOOGLE_APPLICATION_CREDENTIALS
+
 };
 
 

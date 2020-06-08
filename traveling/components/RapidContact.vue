@@ -9,18 +9,18 @@
                             <div class="tm-bg-white tm-p-4">
                                 <form action="index.html" method="post" class="contact-form">
                                     <div class="form-group">
-                                        <input type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name"  required/>
+                                        <input v-model="name" type="text" id="contact_name" name="contact_name" class="form-control" placeholder="Name"  required/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email"  required/>
+                                        <input v-model="email" type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email"  required/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" id="contact_subject" name="contact_subject" class="form-control" placeholder="Subject"  required/>
+                                        <input v-model="subject" type="text" id="contact_subject" name="contact_subject" class="form-control" placeholder="Subject"  required/>
                                     </div>
                                     <div class="form-group">
-                                        <textarea id="contact_message" name="contact_message" class="form-control" rows="9" placeholder="Message" required></textarea>
+                                        <textarea v-model="message" id="contact_message" name="contact_message" class="form-control" rows="9" placeholder="Message" required></textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary tm-btn-primary">Send Message Now</button>
+                                    <button @click.prevent="sendMessage" type="submit" class="btn btn-primary tm-btn-primary">Send Message Now</button>
                                 </form>
                             </div>
                         </div>
@@ -30,8 +30,49 @@
 </template>
 
 <script>
-export default {
+import Swal from "sweetalert2";
 
+
+export default {
+   data(){
+    return{
+      name:"",
+      email:"",
+      subject:"",
+      message:""
+    }
+  },
+  methods:{
+    async sendMessage(){
+      let userMessage = {
+        name: this.name,
+        email: this.email,
+        subject: this.subject,
+        message: this.message,
+      };
+      const send = firestore.collection("Contact")
+      send.doc().set({userMessage})
+      try{
+        console.log("send success")
+      }catch(err){
+        console.log(err)
+      }
+     /* try {
+        let response = await this.$axios.post(
+          "http://localhost:8082/contacts", contact);
+          console.log(response.data)
+
+        //this.$router.push("/login");
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Not found!"
+        });
+        console.log(err.response.data.error);
+      } */
+    }
+  }
 }
 </script>
 
