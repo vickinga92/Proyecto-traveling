@@ -7,7 +7,8 @@ const mustAuth = require('../middlewares/mustAuth')
 
 router.route('/favorites')
   .get(mustAuth(), async (req, res) => {
-   // let filters = {id: req.user._id}
+   // filters = { _id: req.user.id }
+
     let favoriteList = await Favorites.find().exec()
 
     res.json(favoriteList)
@@ -16,7 +17,6 @@ router.route('/favorites')
      let data = req.body
     try{
       let newFavorite =  {
-        //location_id : data.location_id,
         photo: data.photo,
         name : data.name,
         subcategory_type : data.subcategory_type,
@@ -34,7 +34,9 @@ router.route('/favorites')
     }catch (e){
       res.status(500).json({error:e.message})
     }
-});
+})
+
+
 router.route('/favorites/:id')
   .get(mustAuth(), async (req, res) => {
 
@@ -49,12 +51,11 @@ router.route('/favorites/:id')
 
     res.json(foundItem)
   })
-
   .delete(mustAuth(), async (req, res) => {
 
-    let searchId = req.params.location_id
+    let searchId = req.params.id
 
-    let foundItem = await Favorites.findOneAndDelete({location_id: searchId}).exec()
+    let foundItem = await Favorites.findOneAndDelete({_id: searchId}).exec()
 
     if (!foundItem) {
       res.status(404).json({ 'message': 'El elemento que intentas eliminar no existe' })
@@ -62,7 +63,8 @@ router.route('/favorites/:id')
     }
 
     res.status(204).json()
-  })
+  });
+
 
 
 module.exports = router

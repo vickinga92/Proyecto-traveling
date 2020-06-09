@@ -8,7 +8,7 @@ class Database {
 
   async connect() {
 
-    this.db = mongoose.connections;
+    this.db = mongoose.connection;
 
     try{
       await mongoose.connect(process.env.DB_CONNECTION || config.DB_CONNECTION, {useFindAndModify:false, useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})

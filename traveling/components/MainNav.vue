@@ -45,13 +45,19 @@ export default {
   props: ["menu"],
   data() {
     return {
-      isAuth: false
+      isAuth: false,
     };
   },
-
+async mounted() {
+await this.checkAuth();
+  },
   methods: {
     checkAuth() {
-      this.isAuth = window.localStorage.getItem("token") != null;
+     this.$store.dispatch('getToken')
+     this.isAuth = this.$store.state.isAuth
+
+      //this.isAuth = window.localStorage.getItem("token") != null;
+
     },
     async logout() {
       try {
@@ -63,8 +69,6 @@ export default {
       }
     }
   },
-    mounted() {
-    this.checkAuth();
-  },
+
 };
 </script>

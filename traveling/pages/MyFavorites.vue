@@ -4,15 +4,16 @@
     <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
     <FavoritesHotels
       v-for="item in favoriteshotels"
-      :key="item.location_id"
+      :key="item._id"
       :photo="item.photo"
       :name="item.name"
       :subcategory_type="item.subcategory_type"
+      :hotel_class="item.hotel_class"
       :location_string="item.location_string"
       :num_reviews="item.num_reviews"
       :helpful_votes="item.helpful_votes"
       :price="item.price"
-      @delete="deleteFavorite"
+      @delete="deleteFavorite(item._id)"
     ></FavoritesHotels>
   </div>
 
@@ -21,13 +22,14 @@
 <script>
 import FavoritesHotels from "@/partials/FavoritesHotels";
 import Introduction from "@/components/Introduction";
+import Swal from "sweetalert2";
 
 export default {
   data() {
     return {
       favoriteshotels: [
           {
-         location_id:"",
+            id:"",
          photo:{
             images:{
               medium:{
@@ -48,18 +50,20 @@ export default {
   },
   mounted() {
     this.getAllFavorites();
-
+    this.checkAuth()
   },
 
   methods: {
-
+    checkAuth() {
+      this.isAuth = window.localStorage.getItem("token") != null;
+    },
     async getAllFavorites() {
       let config = {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
       };
-      let newFavorite = {};
+      let favoriteshotels = {};
 
       try {
         let response = await this.$axios.get(
@@ -67,12 +71,12 @@ export default {
           config
         );
         console.log(response);
-        this.hotels = response.data;
+        this.favoriteshotels = response.data;
       } catch (err) {
-        console.log("no se conecta");
+        console.log("no se conecta", err.response.data.error);
       }
     },
-   async deleteFavorite(){
+   async deleteFavorite(id){
         let config = {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
@@ -82,13 +86,20 @@ export default {
 
       try {
         let response = await this.$axios.delete(
-          "http://localhost:8082//favorites/:id",
+          `http://localhost:8082/favorites/${id}` ,
           config
         );
         console.log(response);
-        this.hotels = response.data;
+        this.favoriteshotels = response.data;
+        Swal.fire({
+            icon: "success",
+            title: "ok...",
+            text: "se ha eliminado correctamente!",
+          });
+
       } catch (err) {
-        console.log("no se conecta");
+        console.log(err)
+        console.log("no se conecta", err.response.data.error);
       }
     }
   },

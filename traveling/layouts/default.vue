@@ -24,14 +24,12 @@ export default {
       ]
     }
   },
-/*   router.beforeEach((to, from, next)=>{
-  console.log(to)
-  if(to.meta.isPrivate && !store.state.isAuth){
-    next("login")
-  }else{
-    next()
+async mounted(){
+  if(window.localStorage.token){
+  await this.$store.dispatch('getToken')
+
   }
-}) */
+},
   components:{
     MainNav,
     MainFooter,

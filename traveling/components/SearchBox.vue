@@ -89,7 +89,7 @@
 
     <HotelBox
       v-for="item in hotels"
-      :key="item.location_id"
+      :key="item.id"
       :photo="item.photo.images.medium.url"
       :name="item.name"
       :subcategory_type="item.subcategory_type"
@@ -135,7 +135,7 @@ export default {
       ],
       hotels: [
          {
-       // location_id:"",
+        id:"",
          photo:{
             images:{
               medium:{
@@ -152,7 +152,7 @@ export default {
           price: ""
         },
          {
-        //  location_id:"1",
+        id:"",
           photo:{
             images:{
               medium:{
@@ -217,14 +217,14 @@ export default {
 
       let newFavorite =
         {
-        //  location_id: item.location_id,
-          photo:item.photo,
+          id: item.id,
+          photo: item.photo.images.medium.url,
           name: item.name,
           subcategory_type: item.subcategory_type,
           hotel_class:item.hotel_class,
           location_string: item.location_string,
           num_reviews: item.num_reviews,
-          helpful_votes: item.helpful_votes,
+          helpful_votes: item.photo.helpful_votes,
           price: item.price
         }
         console.log('<<<<<<<', newFavorite)
@@ -232,10 +232,10 @@ export default {
       try {
         let response = await this.$axios.post(
           "http://localhost:8082/favorites", newFavorite, config);
-  console.log('respuesta', response.data)
+          console.log('respuesta', response.data)
         this.$router.push("/myfavorites");
       } catch (err) {
-        console.log("no se conecta");
+        console.log("no se conecta", err.response.data.error);
         Swal.fire({
           icon: "error",
           title: "Oops...",

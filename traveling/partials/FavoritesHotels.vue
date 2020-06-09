@@ -19,6 +19,7 @@
                   href="#"
                   class="img"
 						    ><img :src="photo" alt=""></a>
+
               </div>
               <div class="col-md-4">
                 <h3 class="tm-color-primary tm-article-title-1">{{name}}</h3>
