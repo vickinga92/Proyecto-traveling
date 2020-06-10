@@ -43,6 +43,7 @@
 
 <script>
 export default {
+  name: "HotelBox",
   props: ["photo", "name", "subcategory_type","hotel_class", "location_string", "num_reviews", "helpful_votes", "price" ],
   data(){
     return{

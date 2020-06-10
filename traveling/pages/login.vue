@@ -53,21 +53,13 @@ export default {
   name: "Login",
   asyncData() {
     return {
-      isAuth: false,
       email: "",
       password: ""
     };
   },
-async mounted() {
-  await this.checkAuth();
-  },
-  methods: {
-    checkAuth() {
-     this.$store.dispatch('getToken')
-     //this.isAuth = this.$store.state.isAuth
 
-   // this.isAuth = window.localStorage.getItem("token") != null;
-    },
+  methods: {
+
     async login() {
       let loginData = {
         email: this.email,
@@ -87,7 +79,7 @@ async mounted() {
             loginData);
 
           window.localStorage.setItem("token", response.data.token);
-          this.checkAuth();
+          this.$store.dispatch('login')
           this.$router.push("/");
         } catch (err) {
           Swal.fire({

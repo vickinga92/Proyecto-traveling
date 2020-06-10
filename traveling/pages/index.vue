@@ -23,6 +23,7 @@ import Recomendations from '@/components/Recomendations'
 
 
 export default {
+  name: "index",
   data(){
     return{
       articlesBlog:[

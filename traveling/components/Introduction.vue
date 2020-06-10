@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  name: "Introduction",
   props:["title", "subtitle"]
 };
 </script>

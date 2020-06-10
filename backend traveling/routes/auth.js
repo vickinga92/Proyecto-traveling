@@ -21,9 +21,8 @@ router.route('/auth/login')
     let auth = await checkEmailAndPassword(credentials.email , credentials.password);
 
       let payload = {
-        id: auth.user.uid,
+        _id: auth.user.uid,
         email: credentials.email,
-        password: credentials.password,
       };
 
       let token = jwt.sign(payload, config.jwtPassword);

@@ -41,7 +41,7 @@
 import Swal from "sweetalert2";
 
 export default {
-  name: "RegisterPage",
+  name: "Register",
   asyncData() {
     return {
       email: "",

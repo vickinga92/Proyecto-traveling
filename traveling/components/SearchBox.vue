@@ -86,8 +86,25 @@
       </div>
     </div>
     <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
+    <!-- filtros -->
+      <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <h3>
+            FILTERS
+          </h3>
+        </div>
+        <div class="col-md-6">
+        <select v-model="filterSelected" @change="hotelsFiltered" class="custom-select">
+            <option placeholder="filter by price" selected >Price filters...</option>
+            <option value="Ascendent">Ascendent</option>
+            <option value="Descendent">Descendent</option>
+        </select>
+        </div>
+      </div>
+    </div>
 
-    <HotelBox
+     <HotelBox
       v-for="item in hotels"
       :key="item.id"
       :photo="item.photo.images.medium.url"
@@ -111,17 +128,18 @@ import HotelBox from "@/partials/HotelBox";
 import Introduction from "@/components/Introduction";
 
 export default {
+  name: "SearchBox",
   data() {
     return {
-      city: "",
+    city: "",
       location: "",
       checkIn: "",
       nights: "",
       adultsSelected: "",
-      childrensSelected: "",
       roomsSelected: "",
+      filterSelected:"",
 
-      listNumber: [
+       listNumber: [
         { id: 1, number: 1, value: "1" },
         { id: 2, number: 2, value: "2" },
         { id: 3, number: 3, value: "3" },
@@ -168,15 +186,50 @@ export default {
             helpful_votes:"98"
           }},
           price: "78"
+        },
+        {
+        id:"",
+          photo:{
+            images:{
+              medium:{
+                url:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hotelpasarela.com%2Fes%2F&psig=AOvVaw0SsBZiDRm1_Cjaw7IE0YhQ&ust=1591702671375000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCfwtuQ8ukCFQAAAAAdAAAAABAI"}
+                }
+              },
+          name: "soy el segundo hotel ",
+          subcategory_type: "Pensión",
+          hotel_class: "4.0",
+          location_string: "Sevilla",
+          num_reviews: "090",
+          helpful_votes:{photo:{
+            helpful_votes:"62"
+          }},
+          price: "65"
         }
 
       ]
     };
   },
-
+mounted(){
+  this.hotelsFiltered
+},
   methods: {
+hotelsFiltered(){
 
-    async searchHotel() {
+      if(this.filterSelected=="Ascendent"){
+        let priceFiltered = this.hotels.price.sort(function (a, b){
+        return a - b;
+        })
+      if(this.filterSelected=="Descendent"){
+        let priceFiltered = this.hotels.price.sort(function(a, b){
+          return b - a;
+        })
+      }
+
+       let hotelsFilterByPrice = this.hotels.filter(item=>item.price == this.priceFiltered)
+       return hotelsFilterByPrice
+      }
+    },
+async searchHotel() {
       let config = {
         method: "GET",
         headers: {
@@ -214,7 +267,6 @@ export default {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
       };
-
       let newFavorite =
         {
           id: item.id,
@@ -244,11 +296,13 @@ export default {
         this.$router.push("/login");
       }
     }
+
   },
   components: {
     // HotelDatePicker
     HotelBox,
-    Introduction
+    Introduction,
+
   }
 };
 </script>

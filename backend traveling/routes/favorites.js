@@ -7,7 +7,9 @@ const mustAuth = require('../middlewares/mustAuth')
 
 router.route('/favorites')
   .get(mustAuth(), async (req, res) => {
-   // filters = { _id: req.user.id }
+   /*  if (req.user.profile !== 'admin') {
+      filters.user = { _id: req.user.id }
+    } */
 
     let favoriteList = await Favorites.find().exec()
 

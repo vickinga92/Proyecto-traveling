@@ -34,6 +34,7 @@ import Swal from "sweetalert2";
 
 
 export default {
+  name: "RapidContact",
    data(){
     return{
       name:"",

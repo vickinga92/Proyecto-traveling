@@ -30,6 +30,7 @@
 
 <script>
 export default {
+  name:"Blog",
   props:["title", "desc"]
 };
 </script>

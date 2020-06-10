@@ -5,6 +5,7 @@
 <script>
 import RapidContact from '@/components/RapidContact'
 export default {
+  name: "Contact",
     components:{
       RapidContact
     }

@@ -2,8 +2,9 @@
   <div>
      <div class="tm-top-bar-bg"></div>
     <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
+    <FilterPriceHotel></FilterPriceHotel>
     <FavoritesHotels
-      v-for="item in favoriteshotels"
+      v-for="item in favoritesHotels"
       :key="item._id"
       :photo="item.photo"
       :name="item.name"
@@ -22,12 +23,16 @@
 <script>
 import FavoritesHotels from "@/partials/FavoritesHotels";
 import Introduction from "@/components/Introduction";
+import FilterPriceHotel from "@/components/FilterPriceHotel";
+
 import Swal from "sweetalert2";
 
 export default {
+  name: "MyFavorites",
   data() {
     return {
-      favoriteshotels: [
+      filterSelected:"",
+      favoritesHotels: [
           {
             id:"",
          photo:{
@@ -48,22 +53,24 @@ export default {
       ]
     };
   },
-  mounted() {
-    this.getAllFavorites();
-    this.checkAuth()
+ async mounted() {
+  await this.$store.dispatch('getAllFavorites');
+  console.log('-------', 'esta llegando' )
   },
-
+  /*  computed:{
+     favoritesHotels(){
+     return this.$store.state.favoritesHotels
+    }
+  }, */
   methods: {
-    checkAuth() {
-      this.isAuth = window.localStorage.getItem("token") != null;
-    },
-    async getAllFavorites() {
+
+     /* async getAllFavorites() {
       let config = {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
       };
-      let favoriteshotels = {};
+      let favoritesHotels = {};
 
       try {
         let response = await this.$axios.get(
@@ -71,11 +78,14 @@ export default {
           config
         );
         console.log(response);
-        this.favoriteshotels = response.data;
+        this.$store.dispatch('login')
+        this.favoritesHotels = response.data;
+
       } catch (err) {
         console.log("no se conecta", err.response.data.error);
       }
-    },
+    }, */
+
    async deleteFavorite(id){
         let config = {
         headers: {
@@ -90,7 +100,7 @@ export default {
           config
         );
         console.log(response);
-        this.favoriteshotels = response.data;
+        this.favoritesHotels = response.data;
         Swal.fire({
             icon: "success",
             title: "ok...",
@@ -105,7 +115,8 @@ export default {
   },
   components: {
     Introduction,
-    FavoritesHotels
+    FavoritesHotels,
+    FilterPriceHotel
   }
 };
 </script>

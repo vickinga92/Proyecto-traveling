@@ -18,7 +18,7 @@
 import Introduction from "@/components/Introduction";
 
 export default {
-  name: "NotFound",
+  name: "Error",
   components: {
     Introduction,
   },

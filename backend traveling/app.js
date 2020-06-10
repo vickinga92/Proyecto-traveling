@@ -24,12 +24,15 @@ app.use(express.json())
 const routeAuth = require('./routes/auth')
 const routeUsers = require('./routes/users')
 const routeFavorites = require('./routes/favorites')
+const routeNews = require('./routes/news')
 
 //Se enganchan las rutas
 
 app.use(routeAuth)
 app.use(routeUsers)
 app.use(routeFavorites)
+app.use(routeNews)
+
 
 //conectamos la base de datos
 database.connect()

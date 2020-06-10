@@ -10,7 +10,7 @@
                <span>TRAVELING</span>
               </span>
             </nuxt-link>
-            <button type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button  type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
              </button>
             <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
@@ -42,27 +42,19 @@
 
 <script>
 export default {
+  name: "MainNav",
   props: ["menu"],
-  data() {
-    return {
-      isAuth: false,
-    };
-  },
-async mounted() {
-await this.checkAuth();
+
+ computed:{
+    isAuth(){
+      return this.$store.state.isAuth
+    }
   },
   methods: {
-    checkAuth() {
-     this.$store.dispatch('getToken')
-     this.isAuth = this.$store.state.isAuth
 
-      //this.isAuth = window.localStorage.getItem("token") != null;
-
-    },
-    async logout() {
+     logout() {
       try {
-        window.localStorage.removeItem("token");
-        this.checkAuth();
+        this.$store.dispatch('logout')
         this.$router.push("/");
       } catch (err) {
         console.log(err.response.data.error);
