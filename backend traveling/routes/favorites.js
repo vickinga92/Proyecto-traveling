@@ -8,14 +8,11 @@ const mustAuth = require('../middlewares/mustAuth')
 
 router.route('/favorites')
   .get(mustAuth(), async (req, res) => {
-        filterPriceDesc = {price: -1}
-        filterPriceAsc = {price: 1}
-        filters= {userId : req.user._id}
-        let favoriteList = await Favorites.find(filters).exec()
-        let priceDesc = await Favorites.find(filters).sort(filterPriceDesc)
-        let priceAsc = await Favorites.find(filters).sort(filterPriceAsc)
+      filters= {userId : req.user._id}
+       let favoriteList = await Favorites.find(filters).exec()
 
-    res.json(favoriteList)
+     res.json(favoriteList)
+
   })
    .post(mustAuth(), async (req, res) => {
      let data = req.body
@@ -42,7 +39,24 @@ router.route('/favorites')
     }
 })
 
+router.route('/favorites/filterDesc')
+.get(mustAuth(), async (req, res) => {
+  filters= {userId : req.user._id}
+  filterPriceDesc = {price: -1}
 
+  let priceDesc = await Favorites.find(filters).sort(filterPriceDesc).exec()
+
+res.json(priceDesc)
+
+})
+router.route('/favorites/filterAsc')
+.get(mustAuth(), async (req, res) => {
+  filters= {userId : req.user._id}
+  filterPriceAsc = {price: 1}
+  let priceAsc = await Favorites.find(filters).sort(filterPriceAsc).exec()
+
+  res.json(priceAsc)
+})
 router.route('/favorites/:id')
   .get(mustAuth(), async (req, res) => {
 

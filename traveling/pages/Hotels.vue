@@ -1,4 +1,4 @@
-<template>
+  <template>
 
   <div class="tm-main-content" id="top">
             <div class="tm-top-bar-bg"></div>

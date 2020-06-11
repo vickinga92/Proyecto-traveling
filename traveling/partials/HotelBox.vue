@@ -25,7 +25,7 @@
                 <h3 class="tm-color-primary tm-article-title-1">{{name}}</h3>
                 <p>{{subcategory_type}}-{{hotel_class}}</p>
                 <p>{{location_string}}</p>
-                <button  @click.prevent="getInformation" class="btn btn-secondary tm-btn-search">hotel information</button>
+                <button @click.prevent="getInformation" class="btn btn-secondary tm-btn-search"> hotel information </button>
               </div>
               <div class="col-md-4">
                 <p>reviews {{num_reviews}}</p>

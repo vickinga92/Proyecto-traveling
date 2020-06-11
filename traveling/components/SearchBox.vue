@@ -217,11 +217,11 @@ mounted(){
   methods: {
 hotelsFiltered(){
 
-      if(this.filterSelected=="Ascendent"){
+      if(this.filterSelected.value=="Ascendent"){
         let priceFiltered = this.hotels.price.sort(function (a, b){
         return a - b;
         })
-      if(this.filterSelected=="Descendent"){
+      if(this.filterSelected.value=="Descendent"){
         let priceFiltered = this.hotels.price.sort(function(a, b){
           return b - a;
         })

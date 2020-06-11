@@ -21,10 +21,21 @@
 <script>
 export default {
   name: "FilterPriceHotel",
-  computed:{
-    filterSelected(){
-
+  props: {
+    value: {}
+  },
+  data(){
+    return{
+  filterSelected : this.value
     }
+  },
+  watch: {
+     filterSelected (newValue) {
+       this.$emit('input', newValue)
+     },
+     value (newValue) {
+       this.filterSelected = value
+     }
   },
 methods:{
   hotelsFiltered(){

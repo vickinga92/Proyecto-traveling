@@ -2,7 +2,7 @@
   <div>
      <div class="tm-top-bar-bg"></div>
     <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
-    <FilterPriceHotel></FilterPriceHotel>
+    <FilterPriceHotel :filterSelected="filterSelected" @change="hotelsFiltered"></FilterPriceHotel>
     <FavoritesHotels
       v-for="item in favoritesHotels"
       :key="item._id"
@@ -31,7 +31,8 @@ export default {
   name: "MyFavorites",
   data() {
     return {
-      filterSelected:"",
+     // favoritesHotels:[],
+      filterSelected:"Ascendent",
     };
   },
   async mounted() {
@@ -69,6 +70,35 @@ export default {
         console.log(err)
         console.log("no se conecta", err.response.data.error);
       }
+    },
+  async  hotelsFiltered(){
+      if(this.filterSelected=="Ascendent"){
+       let config = {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("token")}`
+        }
+      };
+        const Asc="http://localhost:8082/favorites/filterAsc"
+      try {
+        let filterA = await this.$axios.get(Asc,config);
+        this.favoritesHotels = filterA.data;
+      console.log(this.favoritesHotels)
+      } catch (err) {
+        console.log("no se conecta", err.response.data.error);
+      }
+      }
+       if(this.filterSelected=="Descendent"){
+      const Desc="http://localhost:8082/favorites/filterDesc"
+      try {
+        let filterD = await this.$axios.get(Desc, config);
+        console.log(filterD);
+        this.favoritesHotels = filterD.data;
+
+      } catch (err) {
+        console.log(err)
+        console.log("no se conecta", err.response.data.error);
+      }
+    }
     }
   },
   components: {
