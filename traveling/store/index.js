@@ -4,25 +4,7 @@ export const state = () => ({
   isAuth: false,
   currentToken: null,
   loggedUser: null,
-  favoritesHotels: [
-    {
-      id:"",
-   photo:{
-      images:{
-        medium:{
-          url:""
-          }}},
-    name: "",
-    subcategory_type: "",
-    hotel_class: "",
-    location_string: "",
-    num_reviews: "",
-    helpful_votes:{photo:{
-      helpful_votes:""
-    }},
-    price: ""
-  }
-] ,
+  favoritesHotels: []
 })
  export const actions={
     login(context){
@@ -48,14 +30,11 @@ export const state = () => ({
           config
         );
         console.log(response);
-        context.dispatch('login')
-        this.favoritesHotels = response.data;
-
+        context.commit('setFavoritesHotels', response.data)
       } catch (err) {
         console.log("no se conecta", err.response.data.error);
       }
-    },
-
+    }
 }
 export const mutations = {
   setCurrentToken(state, token = null) {
@@ -75,6 +54,9 @@ export const mutations = {
       state.isAuth=false
     }
   },
+  setFavoritesHotels(state, hotels){
+    state.favoritesHotels = hotels
+  }
 }
 export const getters = {
   getToken(state){

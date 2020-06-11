@@ -32,61 +32,19 @@ export default {
   data() {
     return {
       filterSelected:"",
-      favoritesHotels: [
-          {
-            id:"",
-         photo:{
-            images:{
-              medium:{
-                url:""
-                }}},
-          name: "",
-          subcategory_type: "",
-          hotel_class: "",
-          location_string: "",
-          num_reviews: "",
-          helpful_votes:{photo:{
-            helpful_votes:""
-          }},
-          price: ""
-        },
-      ]
     };
   },
- async mounted() {
-  await this.$store.dispatch('getAllFavorites');
+  async mounted() {
+   await this.$store.dispatch('getAllFavorites')
   console.log('-------', 'esta llegando' )
   },
-  /*  computed:{
-     favoritesHotels(){
-     return this.$store.state.favoritesHotels
-    }
-  }, */
-  methods: {
-
-     /* async getAllFavorites() {
-      let config = {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("token")}`
-        }
-      };
-      let favoritesHotels = {};
-
-      try {
-        let response = await this.$axios.get(
-          "http://localhost:8082/favorites",
-          config
-        );
-        console.log(response);
-        this.$store.dispatch('login')
-        this.favoritesHotels = response.data;
-
-      } catch (err) {
-        console.log("no se conecta", err.response.data.error);
+   computed:{
+      favoritesHotels(){
+        return this.$store.state.favoritesHotels
       }
-    }, */
-
-   async deleteFavorite(id){
+  },
+  methods: {
+    async deleteFavorite(id){
         let config = {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`

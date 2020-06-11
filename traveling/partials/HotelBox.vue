@@ -19,12 +19,13 @@
                   href="#"
                   class="img"
 						    ><img :src="photo" alt=""></a>
+                {{location_id}}
               </div>
               <div class="col-md-4">
                 <h3 class="tm-color-primary tm-article-title-1">{{name}}</h3>
                 <p>{{subcategory_type}}-{{hotel_class}}</p>
                 <p>{{location_string}}</p>
-
+                <button  @click.prevent="getInformation" class="btn btn-secondary tm-btn-search">hotel information</button>
               </div>
               <div class="col-md-4">
                 <p>reviews {{num_reviews}}</p>
@@ -32,6 +33,7 @@
 
                 <div>PRICE {{price}}</div> <br>
                    <button  @click.prevent="saveToFavorites"  class="btn btn-primary tm-btn-search">Save to Favorites</button>
+
               </div>
             </div>
           </div>
@@ -44,7 +46,7 @@
 <script>
 export default {
   name: "HotelBox",
-  props: ["photo", "name", "subcategory_type","hotel_class", "location_string", "num_reviews", "helpful_votes", "price" ],
+  props: ["location_id","photo", "name", "subcategory_type","hotel_class", "location_string", "num_reviews", "helpful_votes", "price" ],
   data(){
     return{
 
@@ -53,6 +55,9 @@ export default {
   methods:{
     saveToFavorites(){
       this.$emit("save")
+    },
+     getInformation(){
+      this.$emit("get")
     },
 
   }

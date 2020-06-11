@@ -107,6 +107,7 @@
      <HotelBox
       v-for="item in hotels"
       :key="item.id"
+      :location_id="item.location_id"
       :photo="item.photo.images.medium.url"
       :name="item.name"
       :subcategory_type="item.subcategory_type"
@@ -116,6 +117,7 @@
       :helpful_votes="item.photo.helpful_votes"
       :price="item.price"
       @save="saveToFavorites(item)"
+      @get="getInformation"
     ></HotelBox>
 
   </div>
@@ -131,7 +133,7 @@ export default {
   name: "SearchBox",
   data() {
     return {
-    city: "",
+      city: "",
       location: "",
       checkIn: "",
       nights: "",
@@ -153,7 +155,7 @@ export default {
       ],
       hotels: [
          {
-        id:"",
+        location_id:"",
          photo:{
             images:{
               medium:{
@@ -170,7 +172,7 @@ export default {
           price: ""
         },
          {
-        id:"",
+        location_id:"987",
           photo:{
             images:{
               medium:{
@@ -188,7 +190,7 @@ export default {
           price: "78"
         },
         {
-        id:"",
+        location_id:"9455335",
           photo:{
             images:{
               medium:{
@@ -243,6 +245,7 @@ async searchHotel() {
         let city = await this.$axios.get(URL, config);
         console.log(city.data);
         this.location = city.data.data[0].result_object.location_id;
+        console.log(this.location)
       } catch (err) {
         console.log(err.city.data.error);
       }
@@ -260,7 +263,9 @@ async searchHotel() {
         console.log(err.response.data.error);
       }
     },
+  getInformation(){
 
+  },
     async saveToFavorites(item) {
       let config = {
         headers: {
@@ -269,7 +274,7 @@ async searchHotel() {
       };
       let newFavorite =
         {
-          id: item.id,
+          location_id:item.location_id,
           photo: item.photo.images.medium.url,
           name: item.name,
           subcategory_type: item.subcategory_type,
@@ -279,12 +284,12 @@ async searchHotel() {
           helpful_votes: item.photo.helpful_votes,
           price: item.price
         }
-        console.log('<<<<<<<', newFavorite)
-      ;
+        console.log('<<<<<<<', newFavorite);
       try {
         let response = await this.$axios.post(
           "http://localhost:8082/favorites", newFavorite, config);
           console.log('respuesta', response.data)
+
         this.$router.push("/myfavorites");
       } catch (err) {
         console.log("no se conecta", err.response.data.error);

@@ -3,15 +3,17 @@ const express = require('express')
 const {json} = require('express')
 const router = express.Router()
 const Favorites = require('../models/favorites')
+const User = require('../models/users')
 const mustAuth = require('../middlewares/mustAuth')
 
 router.route('/favorites')
   .get(mustAuth(), async (req, res) => {
-   /*  if (req.user.profile !== 'admin') {
-      filters.user = { _id: req.user.id }
-    } */
-
-    let favoriteList = await Favorites.find().exec()
+        filterPriceDesc = {price: -1}
+        filterPriceAsc = {price: 1}
+        filters= {userId : req.user._id}
+        let favoriteList = await Favorites.find(filters).exec()
+        let priceDesc = await Favorites.find(filters).sort(filterPriceDesc)
+        let priceAsc = await Favorites.find(filters).sort(filterPriceAsc)
 
     res.json(favoriteList)
   })
@@ -19,6 +21,8 @@ router.route('/favorites')
      let data = req.body
     try{
       let newFavorite =  {
+        userId: req.user._id,
+        location_id: data.location_id,
         photo: data.photo,
         name : data.name,
         subcategory_type : data.subcategory_type,

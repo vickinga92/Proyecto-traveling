@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 let favoritesSchema = new Schema({
+  userId:{ type: String, required: false },
+  location_id:{ type: Number, required: false },
   photo: { type: String, required: false },
   name: { type: String, required: false },
   subcategory_type : { type: String, required: false },
