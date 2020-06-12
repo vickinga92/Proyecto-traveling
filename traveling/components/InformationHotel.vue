@@ -3,7 +3,6 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h3>
-        Esto es un hotel
 				{{name}}
 			</h3>
       <span>{{location_string}}</span>
@@ -25,7 +24,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-					  {{description}} que ta pasi geigeha eg
+					  {{description}}
 					</p>
 				</div>
 			</div>

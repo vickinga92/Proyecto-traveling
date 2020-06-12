@@ -1,19 +1,21 @@
 <template>
+ <div class="tm-main-content" id="top">
   <div class="tm-top-bar" id="tm-top-bar">
+     <div class="tm-top-bar" id="tm-top-bar">
     <div class="container">
       <div class="row">
         <nav class="navbar navbar-expand-lg narbar-light">
           <div class="row">
             <nuxt-link to="/" id="logo">
               <span>
-               <img alt=logo src="@/assets/img/logo.png" />
-               <span>TRAVELING</span>
+               <img alt=logo src="@/assets/img/logo.jpg" />
               </span>
             </nuxt-link>
-            <button  type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <b-navbar-toggle target="mainNav" type="button" id="nav-toggle" class="navbar-toggler collapsed" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span>
-             </button>
-            <div id="mainNav" class="collapse navbar-collapse tm-bg-white">
+             </b-navbar-toggle>
+            <b-collapse id="mainNav" class="collapse navbar-collapse tm-bg-white" is-nav>
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item" v-for="item in menu" :key="item.id">
                   <nuxt-link class="nav-link" :to="item.path">
@@ -31,12 +33,14 @@
                   <nuxt-link to="/register" class="nav-link text-success">SING IN</nuxt-link>
                 </li>
               </ul>
-            </div>
+            </b-collapse>
           </div>
         </nav>
       </div>
     </div>
   </div>
+ </div>
+ </div>
 </template>
 
 

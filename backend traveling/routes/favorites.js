@@ -62,7 +62,7 @@ router.route('/favorites/:id')
 
     let searchId = req.params.id
 
-    let foundItem = await Favorites.findById(searchId).exec()
+    let foundItem = await Favorites.findOne(searchId).exec()
 
     if (!foundItem) {
       res.status(404).json({ 'message': 'El elemento que intentas obtener no existe' })
@@ -74,6 +74,7 @@ router.route('/favorites/:id')
   .delete(mustAuth(), async (req, res) => {
 
     let searchId = req.params.id
+
 
     let foundItem = await Favorites.findOneAndDelete({_id: searchId}).exec()
 

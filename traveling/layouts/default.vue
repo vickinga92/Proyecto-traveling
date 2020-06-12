@@ -9,6 +9,8 @@
 <script>
 import MainNav from '@/components/MainNav'
 import MainFooter from '@/components/MainFooter'
+import filters from '@/plugins/filters'
+
 
 
 export default {

@@ -87,7 +87,8 @@
     </div>
     <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
     <!-- filtros -->
-      <div class="container-fluid">
+    <FilterPriceHotel :filterSelected="filterSelected" @change="hotelsFiltered"></FilterPriceHotel>
+       <div class="container-fluid">
       <div class="row">
         <div class="col-md-6">
           <h3>
@@ -117,7 +118,7 @@
       :helpful_votes="item.photo.helpful_votes"
       :price="item.price"
       @save="saveToFavorites(item)"
-      @get="getInformation"
+      @get="getInformation()"
     ></HotelBox>
 
   </div>
@@ -128,6 +129,8 @@
 import Swal from "sweetalert2";
 import HotelBox from "@/partials/HotelBox";
 import Introduction from "@/components/Introduction";
+import FilterPriceHotel from "@/components/FilterPriceHotel";
+
 
 export default {
   name: "SearchBox",
@@ -187,7 +190,7 @@ export default {
           helpful_votes:{photo:{
             helpful_votes:"98"
           }},
-          price: "78"
+          price: "88"
         },
         {
         location_id:"9455335",
@@ -208,31 +211,50 @@ export default {
           price: "65"
         }
 
-      ]
+      ],
+       informationHotel:[
+       {
+        name: "",
+         location_string: "",
+         photo:{
+            images:{
+              medium:{
+                url:""
+                }}},
+        amenities:{
+          name:""
+        },
+        description:""
+        },
+    ]
     };
   },
-mounted(){
-  this.hotelsFiltered
-},
+  mounted(){
+  //this.hotels = window.localStorage.getItem('hotels: ', JSON.parse(hotels));
+
+  },
   methods: {
 hotelsFiltered(){
 
-      if(this.filterSelected.value=="Ascendent"){
-        let priceFiltered = this.hotels.price.sort(function (a, b){
-        return a - b;
+      if(this.filterSelected=="Ascendent"){
+        let priceFilteredAsc = this.hotels.sort(function (a, b){
+        return a.price - b.price;
         })
-      if(this.filterSelected.value=="Descendent"){
-        let priceFiltered = this.hotels.price.sort(function(a, b){
-          return b - a;
-        })
+         let hotelsFilterByPriceAsc = this.hotels.filter(item=>item.price == this.priceFilteredAsc)
+       return hotelsFilterByPriceAsc
       }
 
-       let hotelsFilterByPrice = this.hotels.filter(item=>item.price == this.priceFiltered)
-       return hotelsFilterByPrice
+      if(this.filterSelected=="Descendent"){
+        let priceFilteredDesc = this.hotels.sort(function(a, b){
+          return b.price - a.price;
+        })
+         let hotelsFilterByPriceDesc = this.hotels.filter(item=>item.price == this.priceFilteredDesc)
+       return hotelsFilterByPriceDesc
       }
+
     },
 async searchHotel() {
-      let config = {
+      var config = {
         method: "GET",
         headers: {
           "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
@@ -258,14 +280,24 @@ async searchHotel() {
         let response = await this.$axios.get(URL1, config);
         console.log(response.data);
         this.hotels = response.data.data;
-
+        window.localStorage.setItem('hotels', JSON.stringify(this.hotels));
       } catch (err) {
         console.log(err.response.data.error);
       }
     },
-  getInformation(){
+ async getInformation(){
+      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-detail?${this.location_id}`;
 
-  },
+      try {
+        let information = await this.$axios.get(URL2, config);
+        console.log(information.data);
+        this.informationHotel = information.data.data
+       // this.$router.push('/hotels/id')
+        console.log(this.informationHotel)
+      } catch (err) {
+        console.log(err.information.data.error);
+      }
+     },
     async saveToFavorites(item) {
       let config = {
         headers: {
@@ -307,6 +339,7 @@ async searchHotel() {
     // HotelDatePicker
     HotelBox,
     Introduction,
+    FilterPriceHotel
 
   }
 };

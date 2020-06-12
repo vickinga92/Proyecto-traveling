@@ -1,10 +1,12 @@
 import jwt_decode from 'jwt-decode'
+import Swal from "sweetalert2";
 
 export const state = () => ({
   isAuth: false,
   currentToken: null,
   loggedUser: null,
-  favoritesHotels: []
+  favoritesHotels: [],
+
 })
  export const actions={
     login(context){
@@ -32,9 +34,64 @@ export const state = () => ({
         console.log(response);
         context.commit('setFavoritesHotels', response.data)
       } catch (err) {
+        console.log(err)
         console.log("no se conecta", err.response.data.error);
       }
+    },
+    async deleteFavorite(context, id){
+      let config = {
+     headers: {
+       Authorization: `Bearer ${window.localStorage.getItem("token")}`
+     }
+   };
+   let newFavorite = {};
+
+   try {
+     let response = await this.$axios.delete(
+       `http://localhost:8082/favorites/${id}` ,
+       config
+     );
+     console.log(response);
+     context.commit('setFavoritesHotels', response.data)
+     Swal.fire({
+         icon: "success",
+         title: "ok...",
+         text: "se ha eliminado correctamente!",
+       });
+
+   } catch (err) {
+     console.log(err)
+     console.log("no se conecta", err.response.data.error);
+   }
+  },
+  async  hotelsFiltered(context, filterSelected){
+    if(filterSelected=="Ascendent"){
+     let config = {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`
+      }
+    };
+      const Asc="http://localhost:8082/favorites/filterAsc"
+    try {
+      let filterA = await this.$axios.get(Asc,config);
+     context.commit('setFavoritesHotels', filterA.data)
+    console.log(filterA)
+    } catch (err) {
+      console.log("no se conecta", err.response.data.error);
     }
+    }
+     if(filterSelected=="Descendent"){
+    const Desc="http://localhost:8082/favorites/filterDesc"
+    try {
+      let filterD = await this.$axios.get(Desc, config);
+      console.log(filterD);
+      context.commit('setFavoritesHotels', filterD.data)
+    } catch (err) {
+      console.log(err)
+      console.log("no se conecta", err.response.data.error);
+    }
+  }
+  }
 }
 export const mutations = {
   setCurrentToken(state, token = null) {

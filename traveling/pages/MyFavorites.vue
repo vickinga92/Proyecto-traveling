@@ -29,10 +29,10 @@ import Swal from "sweetalert2";
 
 export default {
   name: "MyFavorites",
+  middleware : 'isPrivate',
   data() {
     return {
-     // favoritesHotels:[],
-      filterSelected:"Ascendent",
+      filterSelected:""
     };
   },
   async mounted() {
@@ -40,38 +40,19 @@ export default {
   console.log('-------', 'esta llegando' )
   },
    computed:{
-      favoritesHotels(){
+       favoritesHotels(){
         return this.$store.state.favoritesHotels
-      }
+      },
   },
   methods: {
-    async deleteFavorite(id){
-        let config = {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("token")}`
-        }
-      };
-      let newFavorite = {};
-
-      try {
-        let response = await this.$axios.delete(
-          `http://localhost:8082/favorites/${id}` ,
-          config
-        );
-        console.log(response);
-        this.favoritesHotels = response.data;
-        Swal.fire({
-            icon: "success",
-            title: "ok...",
-            text: "se ha eliminado correctamente!",
-          });
-
-      } catch (err) {
-        console.log(err)
-        console.log("no se conecta", err.response.data.error);
-      }
+    deleteFavorite(id){
+       this.$store.dispatch('deleteFavorite', {id})
     },
-  async  hotelsFiltered(){
+    hotelsFiltered(filterSelected){
+      this.$store.dispatch('hotelsFiltered', {filterSelected})
+    }
+
+  /* async  hotelsFiltered(){
       if(this.filterSelected=="Ascendent"){
        let config = {
         headers: {
@@ -99,7 +80,7 @@ export default {
         console.log("no se conecta", err.response.data.error);
       }
     }
-    }
+    } */
   },
   components: {
     Introduction,

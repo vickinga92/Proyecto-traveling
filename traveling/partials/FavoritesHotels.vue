@@ -31,7 +31,10 @@
                 <p>reviews {{num_reviews}}</p>
                 <p>votes {{helpful_votes}}</p>
 
-                <div>PRICE {{price}}</div> <br>
+                <div>PRICE {{price || new Intl.NumberFormat("es-ES", {
+                              style: "currency",
+                              currency: "EUR",
+                            }).format(price)}}</div> <br>
                 <button @click.prevent="deleteFavorite"  class="btn btn-primary tm-btn-search">Delete to Favorites</button>
               </div>
             </div>
@@ -43,6 +46,7 @@
 </template>
 
 <script>
+import filters from '@/plugins/filters'
 export default {
   name: "FavoritesHotels",
   props: ["photo", "name", "subcategory_type","hotel_class", "location_string", "num_reviews", "helpful_votes", "price" ],
