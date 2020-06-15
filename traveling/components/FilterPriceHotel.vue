@@ -10,8 +10,8 @@
         <div class="col-md-6">
         <select v-model="filterSelected" @change="hotelsFiltered" class="custom-select">
             <option  selected>Price filters...</option>
-            <option value="1">Ascendent</option>
-            <option value="2">Descendent</option>
+            <option value="Ascendent">Ascendent</option>
+            <option value="Descendent">Descendent</option>
         </select>
         </div>
       </div>
@@ -39,7 +39,7 @@ export default {
   },
 methods:{
   hotelsFiltered(){
-    this.$emit('change')
+    this.$emit('change', this.filterSelected)
   }
 }
 }

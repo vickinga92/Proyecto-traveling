@@ -13,7 +13,7 @@
               <div class="media-body tm-media-body-1 tm-media-body-v-center">
                 <h3
                   class="tm-font-semibold tm-article-title-3"
-                >{{title}}</h3>
+                >{{titles}}</h3>
                 <p>{{desc}}</p>
                 <nuxt-link
                   to="#"
@@ -31,7 +31,7 @@
 <script>
 export default {
   name:"Blog",
-  props:["title", "desc"]
+  props:["titles", "desc"]
 };
 </script>
 

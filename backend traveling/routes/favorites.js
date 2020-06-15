@@ -72,6 +72,7 @@ router.route('/favorites/:id')
     res.json(foundItem)
   })
   .delete(mustAuth(), async (req, res) => {
+   // if(mongoose.Types.ObjectId.isValid(params.id)) {
 
     let searchId = req.params.id
 
@@ -82,8 +83,8 @@ router.route('/favorites/:id')
       res.status(404).json({ 'message': 'El elemento que intentas eliminar no existe' })
       return
     }
-
-    res.status(204).json()
+  //}
+    res.status(204).json({ 'message': 'El elemento se ha eliminado correctamente' })
   });
 
 

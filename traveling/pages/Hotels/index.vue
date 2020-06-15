@@ -14,7 +14,6 @@
 <script>
 import SearchBox from '@/components/SearchBox'
 
-
 export default {
   name: "Hotels",
   components: {

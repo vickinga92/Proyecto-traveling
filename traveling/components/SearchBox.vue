@@ -19,8 +19,6 @@
                       placeholder="Type your city"
                     />
                   </div>
-                  <!--  <div>   <HotelDatePicker />
-                  </div>-->
                   <div class="form-group tm-form-element tm-form-element-50">
                     <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
                     <input
@@ -87,8 +85,8 @@
     </div>
     <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
     <!-- filtros -->
-    <FilterPriceHotel :filterSelected="filterSelected" @change="hotelsFiltered"></FilterPriceHotel>
-       <div class="container-fluid">
+    <FilterPriceHotel @change="hotelsFiltered"></FilterPriceHotel>
+      <!--  <div class="container-fluid">
       <div class="row">
         <div class="col-md-6">
           <h3>
@@ -103,7 +101,7 @@
         </select>
         </div>
       </div>
-    </div>
+    </div> -->
 
      <HotelBox
       v-for="item in hotels"
@@ -118,14 +116,13 @@
       :helpful_votes="item.photo.helpful_votes"
       :price="item.price"
       @save="saveToFavorites(item)"
-      @get="getInformation()"
+      @get="getInformation"
     ></HotelBox>
-
   </div>
 </template>
 
 <script>
-//import HotelDatePicker from 'vue-hotel-datepicker'
+
 import Swal from "sweetalert2";
 import HotelBox from "@/partials/HotelBox";
 import Introduction from "@/components/Introduction";
@@ -193,14 +190,14 @@ export default {
           price: "88"
         },
         {
-        location_id:"9455335",
+        location_id:"1657593",
           photo:{
             images:{
               medium:{
                 url:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hotelpasarela.com%2Fes%2F&psig=AOvVaw0SsBZiDRm1_Cjaw7IE0YhQ&ust=1591702671375000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCfwtuQ8ukCFQAAAAAdAAAAABAI"}
                 }
               },
-          name: "soy el segundo hotel ",
+          name: "soy el hotel de la informacion ",
           subcategory_type: "Pensión",
           hotel_class: "4.0",
           location_string: "Sevilla",
@@ -212,7 +209,7 @@ export default {
         }
 
       ],
-       informationHotel:[
+       informationHotel:
        {
         name: "",
          location_string: "",
@@ -226,7 +223,7 @@ export default {
         },
         description:""
         },
-    ]
+
     };
   },
   mounted(){
@@ -234,9 +231,9 @@ export default {
 
   },
   methods: {
-hotelsFiltered(){
-
-      if(this.filterSelected=="Ascendent"){
+hotelsFiltered(filterSelected){
+ console.log(filterSelected)
+      if(filterSelected=="Ascendent"){
         let priceFilteredAsc = this.hotels.sort(function (a, b){
         return a.price - b.price;
         })
@@ -244,7 +241,7 @@ hotelsFiltered(){
        return hotelsFilterByPriceAsc
       }
 
-      if(this.filterSelected=="Descendent"){
+      if(filterSelected=="Descendent"){
         let priceFilteredDesc = this.hotels.sort(function(a, b){
           return b.price - a.price;
         })
@@ -286,14 +283,14 @@ async searchHotel() {
       }
     },
  async getInformation(){
-      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-detail?${this.location_id}`;
 
       try {
-        let information = await this.$axios.get(URL2, config);
-        console.log(information.data);
-        this.informationHotel = information.data.data
-       // this.$router.push('/hotels/id')
-        console.log(this.informationHotel)
+      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-details?location_id=1657593`;
+
+        let information = await this.$axios.get(URL2);
+        console.log(information)
+        this.informationHotel = information.data
+        console.log(informationHotel)
       } catch (err) {
         console.log(err.information.data.error);
       }
@@ -333,10 +330,8 @@ async searchHotel() {
         this.$router.push("/login");
       }
     }
-
   },
   components: {
-    // HotelDatePicker
     HotelBox,
     Introduction,
     FilterPriceHotel

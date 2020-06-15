@@ -1,5 +1,13 @@
 <template>
   <div>
+     <div class="tm-top-bar-bg"></div>
+    <Introduction
+       title="Política de Privacidad"
+        subtitle="esfheuoahgeughaugehauh"
+        ></Introduction>
+
+   <div class="container">
+  <div>
     <h2> Qué cumple esta web</h2>
     <p>
     La dirección de esta web es: x
@@ -10,13 +18,21 @@
 
     La cantidad y el tipo de información que recojo depende de la naturaleza de la interacción que tengas conmigo en esta web, pero ninguna de esa información recabada está considerada como sensible, como verás más adelante. Por ejemplo, solicito a los visitantes que quieren dejar un comentario, que proporcionen un nombre de usuario y una dirección de correo electrónico. Tú como visitante siempre puedes negarte a proporcionar información de identificación personal, pero quizás no puedas dejar un comentario o pedir una factura de compra, por ejemplo. Toda esta introducción te la explico detalladamente y de forma clara en los siguientes párrafos.
 </p>
+    <img src="@/assets/img/privacidad.jpg" alt="">
 
+  </div>
+  </div>
   </div>
 </template>
 
 <script>
-export default {
+import Introduction from '@/components/Introduction'
 
+export default {
+ name:"Privacidad",
+  components:{
+  Introduction,
+}
 }
 </script>
 

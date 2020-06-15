@@ -2,7 +2,7 @@
   <div>
      <div class="tm-top-bar-bg"></div>
     <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
-    <FilterPriceHotel :filterSelected="filterSelected" @change="hotelsFiltered"></FilterPriceHotel>
+    <FilterPriceHotel @change="hotelsFiltered"></FilterPriceHotel>
     <FavoritesHotels
       v-for="item in favoritesHotels"
       :key="item._id"
@@ -46,21 +46,23 @@ export default {
   },
   methods: {
     deleteFavorite(id){
-       this.$store.dispatch('deleteFavorite', {id})
+       this.$store.dispatch('deleteFavorite', {id: id})
     },
-    hotelsFiltered(filterSelected){
+     hotelsFiltered(filterSelected){
       this.$store.dispatch('hotelsFiltered', {filterSelected})
-    }
+    },
 
-  /* async  hotelsFiltered(){
-      if(this.filterSelected=="Ascendent"){
+ /*  async  hotelsFiltered(filterSelected){
+ console.log(filterSelected)
+
+      if(filterSelected=="Ascendent"){
        let config = {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
       };
-        const Asc="http://localhost:8082/favorites/filterAsc"
       try {
+        const Asc="http://localhost:8082/favorites/filterAsc"
         let filterA = await this.$axios.get(Asc,config);
         this.favoritesHotels = filterA.data;
       console.log(this.favoritesHotels)
@@ -68,9 +70,9 @@ export default {
         console.log("no se conecta", err.response.data.error);
       }
       }
-       if(this.filterSelected=="Descendent"){
-      const Desc="http://localhost:8082/favorites/filterDesc"
+       if(filterSelected=="Descendent"){
       try {
+      const Desc="http://localhost:8082/favorites/filterDesc"
         let filterD = await this.$axios.get(Desc, config);
         console.log(filterD);
         this.favoritesHotels = filterD.data;

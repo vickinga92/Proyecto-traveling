@@ -17,8 +17,7 @@ export default {
   name:"",
 data(){
   return{
-    informationHotel:[
-       {
+    informationHotel:{
         name: "",
          location_string: "",
          photo:{
@@ -30,19 +29,18 @@ data(){
           name:""
         },
         description:""
-        },
-    ]
+      },
   }
 },
   mounted(){
     this.$router.params.id
   },
   methods:{
- async getInformation(location_id){
-      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-detail?${location_id}`;
+/*  async getInformation(location_id){
+      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-details?location_id=${this.location_id}`;
 
       try {
-        let information = await this.$axios.get(URL2, config);
+        let information = await this.$axios.get(URL2);
         console.log(information.data);
         this.informationHotel = information.data.data
 
@@ -50,7 +48,7 @@ data(){
       } catch (err) {
         console.log(err.information.data.error);
       }
-     }
+     } */
   },
   components:{
     InformationHotel

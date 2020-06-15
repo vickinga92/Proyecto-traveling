@@ -1,5 +1,13 @@
 <template>
   <div>
+     <div class="tm-top-bar-bg"></div>
+    <Introduction
+       title="Política de Cookies"
+        subtitle="Lee acerca de nuestra Política de Cookies"
+    ></Introduction>
+
+  <div class="container">
+    <h1>¿Qué son las Cookies?</h1>
     <p>
       Cookie es un fichero que se almacena en su ordenador al acceder a cualquier página web. Las cookies permiten a una página web, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información que contengan y de la forma en que utilice su equipo, pueden utilizarse para reconocer al usuario.
 
@@ -9,13 +17,20 @@
 
       Sin su expreso consentimiento –mediante la activación de las cookies en su navegador– productosnails.com no enlazará en las cookies los datos memorizados con sus datos personales proporcionados en el momento del registro o la compra.
     </p>
+    <img src="@/assets/img/cookie.jpg" alt="">
+    </div>
   </div>
 </template>
 
 <script>
+import Introduction from '@/components/Introduction'
 export default {
-  name:"Cookies"
+  name:"Cookies",
+  components:{
+  Introduction,
 }
+}
+
 </script>
 
 <style>

@@ -12,24 +12,18 @@ async function init() {
 
       const URL="https://cnnespanol.cnn.com/seccion/viajes-y-turismo/"
       let response = await axios.get(URL);
+
       try{
          let $ = cheerio.load(response.data)
-       // var titles = $('h2').attr('class','news__title').text().trim()
-         var titles =$('h2').text().trim()
 
-        var titles1 =  $('h2').map(function(i, el) {
-          return $(this).text().trim();
-        }).get().join(' ');
-        let image = $('article').children('div.news__media').children('a.news__media-item').find('img.image').attr('src')
-
-         var url = $('h2').find('a').attr('href')
-         console.info(titles)
-         console.info(titles1)
-         console.log(url)
-         console.log(image)
-
-         //console.info(url)
-
+        const titles= $('#article-846433 > div.news__data > h2').text().trim();
+    //   titles = titles.join("").split('    \n')[0];
+        console.info(titles)
+            console.log("-----------------")
+         $("h2.news__title").each((i, elem)=> {
+          const link = $(elem).find('a').attr('href')
+          console.info(link)
+        })
 
       }catch(e){
           console.log(e);
@@ -57,6 +51,7 @@ router.route('/news')
   })
 }
 init();
+
   module.exports = router
 
 /*
