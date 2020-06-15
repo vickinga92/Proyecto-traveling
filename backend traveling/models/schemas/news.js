@@ -6,8 +6,9 @@ titles: { type: String, required: false, index : {
   unique : true,
   dropDups : true
 }},
-//photo: { type: String, required: false },
+link: { type: String, required: false },
 
+//photo: { type: String, required: false },
 
 });
 

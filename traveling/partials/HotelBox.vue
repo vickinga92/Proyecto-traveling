@@ -31,10 +31,8 @@
                 <p>reviews {{num_reviews}}</p>
                 <p>votes {{helpful_votes}}</p>
 
-                <div>PRICE {{price || new Intl.NumberFormat("es-ES", {
-                              style: "currency",
-                              currency: "EUR",
-                            }).format(price)}}</div> <br>
+                <div>PRICE {{price.replace("€" && "-","").split("€").join()
+                  }}</div> <br>
                    <button  @click.prevent="saveToFavorites"  class="btn btn-primary tm-btn-search">Save to Favorites</button>
 
               </div>
@@ -44,6 +42,10 @@
       </div>
     </div>
             </div>
+           <!--  || new Intl.NumberFormat("es-ES", {
+                              style: "currency",
+                              currency: "EUR",
+                            }).format(price) -->
 </template>
 
 <script>
@@ -51,21 +53,17 @@ import filters from '@/plugins/filters'
 
 export default {
   name: "HotelBox",
-  props: ["location_id","photo", "name", "subcategory_type","hotel_class", "location_string", "num_reviews", "helpful_votes", "price" ],
-  data(){
-    return{
+  props: ["location_id","photo", "name", "subcategory_type","hotel_class", "location_string", "num_reviews", "helpful_votes", "price", "priceMin", "priceMax" ],
 
-    }
-  },
   methods:{
     saveToFavorites(){
       this.$emit("save")
     },
      getInformation(){
       this.$emit("get")
-    },
-
+    }
   }
+
 };
 </script>
 

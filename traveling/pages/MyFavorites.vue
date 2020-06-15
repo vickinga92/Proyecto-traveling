@@ -37,7 +37,7 @@ export default {
   },
   async mounted() {
    await this.$store.dispatch('getAllFavorites')
-  console.log('-------', 'esta llegando' )
+
   },
    computed:{
        favoritesHotels(){
@@ -50,39 +50,7 @@ export default {
     },
      hotelsFiltered(filterSelected){
       this.$store.dispatch('hotelsFiltered', {filterSelected})
-    },
-
- /*  async  hotelsFiltered(filterSelected){
- console.log(filterSelected)
-
-      if(filterSelected=="Ascendent"){
-       let config = {
-        headers: {
-          Authorization: `Bearer ${window.localStorage.getItem("token")}`
-        }
-      };
-      try {
-        const Asc="http://localhost:8082/favorites/filterAsc"
-        let filterA = await this.$axios.get(Asc,config);
-        this.favoritesHotels = filterA.data;
-      console.log(this.favoritesHotels)
-      } catch (err) {
-        console.log("no se conecta", err.response.data.error);
-      }
-      }
-       if(filterSelected=="Descendent"){
-      try {
-      const Desc="http://localhost:8082/favorites/filterDesc"
-        let filterD = await this.$axios.get(Desc, config);
-        console.log(filterD);
-        this.favoritesHotels = filterD.data;
-
-      } catch (err) {
-        console.log(err)
-        console.log("no se conecta", err.response.data.error);
-      }
     }
-    } */
   },
   components: {
     Introduction,

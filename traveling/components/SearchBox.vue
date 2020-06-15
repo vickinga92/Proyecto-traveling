@@ -84,24 +84,8 @@
       </div>
     </div>
     <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
-    <!-- filtros -->
+
     <FilterPriceHotel @change="hotelsFiltered"></FilterPriceHotel>
-      <!--  <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <h3>
-            FILTERS
-          </h3>
-        </div>
-        <div class="col-md-6">
-        <select v-model="filterSelected" @change="hotelsFiltered" class="custom-select">
-            <option placeholder="filter by price" selected >Price filters...</option>
-            <option value="Ascendent">Ascendent</option>
-            <option value="Descendent">Descendent</option>
-        </select>
-        </div>
-      </div>
-    </div> -->
 
      <HotelBox
       v-for="item in hotels"
@@ -115,6 +99,8 @@
       :num_reviews="item.num_reviews"
       :helpful_votes="item.photo.helpful_votes"
       :price="item.price"
+      :priceMin="item.priceMin"
+      :priceMax="item.priceMax"
       @save="saveToFavorites(item)"
       @get="getInformation"
     ></HotelBox>
@@ -140,6 +126,7 @@ export default {
       adultsSelected: "",
       roomsSelected: "",
       filterSelected:"",
+      location_id:"",
 
        listNumber: [
         { id: 1, number: 1, value: "1" },
@@ -187,7 +174,7 @@ export default {
           helpful_votes:{photo:{
             helpful_votes:"98"
           }},
-          price: "88"
+          price: "€88 - €99"
         },
         {
         location_id:"1657593",
@@ -205,31 +192,14 @@ export default {
           helpful_votes:{photo:{
             helpful_votes:"62"
           }},
-          price: "65"
+          price: "€65 - €99"
         }
 
       ],
-       informationHotel:
-       {
-        name: "",
-         location_string: "",
-         photo:{
-            images:{
-              medium:{
-                url:""
-                }}},
-        amenities:{
-          name:""
-        },
-        description:""
-        },
 
     };
   },
-  mounted(){
-  //this.hotels = window.localStorage.getItem('hotels: ', JSON.parse(hotels));
 
-  },
   methods: {
 hotelsFiltered(filterSelected){
  console.log(filterSelected)
@@ -251,7 +221,7 @@ hotelsFiltered(filterSelected){
 
     },
 async searchHotel() {
-      var config = {
+      let config = {
         method: "GET",
         headers: {
           "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
@@ -277,23 +247,17 @@ async searchHotel() {
         let response = await this.$axios.get(URL1, config);
         console.log(response.data);
         this.hotels = response.data.data;
-        window.localStorage.setItem('hotels', JSON.stringify(this.hotels));
+        this.location_id = response.data.data.location_id /// esta location_id no le dice de que hotel es??
+        console.log(this.location_id)
+
       } catch (err) {
         console.log(err.response.data.error);
       }
     },
  async getInformation(){
+  console.log(this.location_id)
 
-      try {
-      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-details?location_id=1657593`;
-
-        let information = await this.$axios.get(URL2);
-        console.log(information)
-        this.informationHotel = information.data
-        console.log(informationHotel)
-      } catch (err) {
-        console.log(err.information.data.error);
-      }
+      this.$router.push(`/Hotels/${this.location_id}`);
      },
     async saveToFavorites(item) {
       let config = {
@@ -311,7 +275,7 @@ async searchHotel() {
           location_string: item.location_string,
           num_reviews: item.num_reviews,
           helpful_votes: item.photo.helpful_votes,
-          price: item.price
+          price: item.price,
         }
         console.log('<<<<<<<', newFavorite);
       try {

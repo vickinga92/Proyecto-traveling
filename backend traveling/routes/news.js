@@ -5,25 +5,69 @@ const News = require('../models/news')
 const cheerio = require('cheerio');
 const axios = require('axios')
 
+/* for (page; page < numeroCamaras; page ++){
+
+  let web = `e-infin.com/eu/item/${page}/`;
+  const $ = await request({
+      url: web,
+      transform: body => cheerio.load(body)
+
+  });
+
+  let marca = $('.item_detail_brand').text()
+  let modelo = $('.item_detail_name div:nth-child(1)').text()
+  let precio = $('div.item_detail_price > span').text()
+  let img = $('#gallery > div:nth-child(1) > img').attr('src')
+
+  if(marca !== '' && modelo !== '' && precio !== ''){
+
+      let camaraUno ={
+          id: id,
+          marca: marca,
+          modelo: modelo,
+          precio: precio,
+          imagen: 'e-infin.com' + img,
+
+      }
+      id++
+      console.log(camaraUno)
+      let newCamera = new CameraModel(camaraUno)
+      await newCamera.save()
+  }
+
+} */
+
 
 //scraping
 
 async function init() {
 
-      const URL="https://cnnespanol.cnn.com/seccion/viajes-y-turismo/"
-      let response = await axios.get(URL);
-
       try{
+        const URL="https://cnnespanol.cnn.com/seccion/viajes-y-turismo/"
+        let response = await axios.get(URL);
+
          let $ = cheerio.load(response.data)
 
-        const titles= $('#article-846433 > div.news__data > h2').text().trim();
-    //   titles = titles.join("").split('    \n')[0];
+        /* var titles= []
+        $('#article-846433 > div.news__data > h2').each(function(i, elem) {
+          titles[i] = $(this).text().trim();
+        });
+       titles = titles.join("").split('    \n')[0];
+
         console.info(titles)
-            console.log("-----------------")
-         $("h2.news__title").each((i, elem)=> {
-          const link = $(elem).find('a').attr('href')
+
+        var link =$("h2.news__title").each((i, elem)=> {
+          link = $(elem).find('a').attr('href')
           console.info(link)
-        })
+        }) */
+          var news={
+
+              titles:  $('#article-846433 > div.news__data > h2').text().trim(),
+              link: $("h2.news__title").find('a').attr('href')
+          }
+          console.info(news)
+           let newArticle = new News(news)
+           await newArticle.save()
 
       }catch(e){
           console.log(e);
@@ -38,11 +82,11 @@ router.route('/news')
   })
   .post(async (req, res)=>{
     try{
-      let titlesList =  {
+     /*   let titlesList =  {
         titles : titles,
-       // url : url
-      }
-      let titleInMongo = await new News(titlesList).save()
+        link : link,
+      } */
+      let titleInMongo = await new News(news).save()
       res.json(titleInMongo);
 
     }catch (e){

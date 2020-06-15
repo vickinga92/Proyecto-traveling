@@ -1,24 +1,30 @@
 <template>
-  <InformationHotel
-  :name="informationHotel.name"
-  :location_string="informationHotel.location_string"
-  :photo="informationHotel.photo"
-  :amenities="informationHotel.amenities"
-  :description="informationHotel.description"
-  @get="getInformation(location_id)"
+<div>
+  <div class="tm-top-bar-bg"></div>
+  <Introduction
+  title="Hotels Information" subtitle="About Hotels"
+  ></Introduction>
+  <InformationHotel v-for="item in informationHotel"
+    :key="item.id"
+    :name="item.name"
+    :location_string="item.location_string"
+    :photo="item.photo"
+    :amenities="item.amenities"
+    :description="item.description"
   ></InformationHotel>
-
+</div>
 </template>
 
 <script>
 import InformationHotel from '@/components/InformationHotel'
+import Introduction from "@/components/Introduction";
 
 export default {
   name:"",
 data(){
   return{
     informationHotel:{
-        name: "",
+       /*  name: "",
          location_string: "",
          photo:{
             images:{
@@ -28,30 +34,38 @@ data(){
         amenities:{
           name:""
         },
-        description:""
+        description:"" */
       },
   }
 },
   mounted(){
-    this.$router.params.id
+    this.getInformation()
   },
   methods:{
-/*  async getInformation(location_id){
-      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-details?location_id=${this.location_id}`;
+  async getInformation(){
+       let config = {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
+          "x-rapidapi-key": "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
+        }
+      };
 
       try {
-        let information = await this.$axios.get(URL2);
-        console.log(information.data);
+      const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-details?location_id=${this.$route.params.id}`;
+        let information = await this.$axios.get(URL2, config);
         this.informationHotel = information.data.data
-
         console.log(this.informationHotel)
+
       } catch (err) {
+        console.log(err)
         console.log(err.information.data.error);
       }
-     } */
+  }
   },
   components:{
-    InformationHotel
+    Introduction,
+    InformationHotel,
   }
 }
 </script>

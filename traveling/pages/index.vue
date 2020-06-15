@@ -7,8 +7,10 @@
         subtitle="Choose your travel"
       ></Introduction>
       <Recomendations></Recomendations>
+
       <Blog v-for="item in news" :key="item.id"
         :titles="item.titles"
+        :link="item.link"
         :desc="item.desc"
       ></Blog>
 

@@ -2,8 +2,8 @@
   <div class="tm-section tm-section-pad tm-bg-img tm-position-relative" id="tm-section-6">
                 <div class="container ie-h-align-center-fix">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-7">
-                            <div id="google-map"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-7 text-center">
+                            <img src="@/assets/img/contact.png" alt="">
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-5 mt-3 mt-md-0">
                             <div class="tm-bg-white tm-p-4">
@@ -32,7 +32,6 @@
 <script>
 import Swal from "sweetalert2";
 
-
 export default {
   name: "RapidContact",
    data(){
@@ -51,29 +50,37 @@ export default {
         subject: this.subject,
         message: this.message,
       };
-      const send = firestore.collection("Contact")
-      send.doc().set({userMessage})
+    const validatedEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(
+        this.email);
+      if (
+        userMessage.name !== "" &&
+        userMessage.email !== "" &&
+        userMessage.message !== "" &&
+        userMessage.subject !== "" &&
+        validatedEmail
+      ) {
       try{
-        console.log("send success")
-      }catch(err){
-        console.log(err)
-      }
-     /* try {
-        let response = await this.$axios.post(
-          "http://localhost:8082/contacts", contact);
-          console.log(response.data)
-
-        //this.$router.push("/login");
-      } catch (err) {
-        Swal.fire({
+      await this.$fireStore.collection('Contact').add(userMessage)
+      Swal.fire('Send success!')
+      this.cleanForm()
+      }catch(err){}
+         return;
+    }
+     Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Not found!"
+          text: "Please fill in all fields correctly!"
         });
-        console.log(err.response.data.error);
-      } */
+
+  },
+       cleanForm(){
+      this.name = ""
+      this.email = ""
+      this.message = ""
+      this.subject = ""
     }
-  }
+}
+
 }
 </script>
 

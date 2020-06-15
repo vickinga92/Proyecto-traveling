@@ -1,5 +1,5 @@
 <template>
-  <div class="tm-section tm-section-pad tm-bg-img" id="tm-section-5">
+<div class="tm-section tm-section-pad tm-bg-img" id="tm-section-5">
     <div class="container ie-h-align-center-fix">
       <div class="row tm-flex-align-center">
         <div class="col-xs-12 col-md-12 col-lg-3 col-xl-3 tm-media-title-container">
@@ -15,15 +15,17 @@
                   class="tm-font-semibold tm-article-title-3"
                 >{{titles}}</h3>
                 <p>{{desc}}</p>
-                <nuxt-link
-                  to="#"
-                  class="text-uppercase tm-color-primary tm-font-semibold"
-                >Continue reading...</nuxt-link>
+                <button>
+                 <a
+                  :href="link" target="_blank"
+                   class="text-uppercase tm-color-primary tm-font-semibold "
+                  >Continue reading...{{link}}</a>
+                </button>
               </div>
             </article>
-          </div>
-        </div>
-      </div>
+           </div>
+     </div>
+     </div>
     </div>
   </div>
 </template>
@@ -31,7 +33,7 @@
 <script>
 export default {
   name:"Blog",
-  props:["titles", "desc"]
+  props:["titles", "link", "desc"]
 };
 </script>
 
