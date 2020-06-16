@@ -8,9 +8,10 @@
     :key="item.id"
     :name="item.name"
     :location_string="item.location_string"
-    :photo="item.photo"
+    :photo="item.photo.images.medium.url"
     :amenities="item.amenities"
     :description="item.description"
+    :phone="item.phone"
   ></InformationHotel>
 </div>
 </template>
@@ -23,19 +24,7 @@ export default {
   name:"",
 data(){
   return{
-    informationHotel:{
-       /*  name: "",
-         location_string: "",
-         photo:{
-            images:{
-              medium:{
-                url:""
-                }}},
-        amenities:{
-          name:""
-        },
-        description:"" */
-      },
+    informationHotel:{},
   }
 },
   mounted(){

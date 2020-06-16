@@ -1,10 +1,12 @@
 <template>
    <!-- FILTRO -->
+   <div>
+    <div class="tm-top-bar-bg tm-color-primary"></div>
     <div class="container-fluid">
      <div class="row">
         <div class="col-md-6">
-          <h3>
-            FILTERS
+          <h3 class="text-center">
+            FILTERS YOURS HOTELS BY PRICE
           </h3>
         </div>
         <div class="col-md-6">
@@ -16,6 +18,7 @@
         </div>
       </div>
     </div>
+   </div>
 </template>
 
 <script>

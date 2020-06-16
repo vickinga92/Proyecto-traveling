@@ -1,11 +1,10 @@
 <template>
 
   <div class="tm-main-content" id="top">
-            <div class="tm-top-bar-bg"></div>
+  <div class="tm-top-bar-bg"></div>
+    <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
+    <SearchBox ></SearchBox>
 
-      <SearchBox ></SearchBox>
-     <!--  <FilterPriceHotel  ></FilterPriceHotel>
- -->
    </div>
 
 
@@ -13,10 +12,13 @@
 
 <script>
 import SearchBox from '@/components/SearchBox'
+import Introduction from '@/components/Introduction'
+
 
 export default {
   name: "Hotels",
   components: {
+    Introduction,
     SearchBox,
 
   },

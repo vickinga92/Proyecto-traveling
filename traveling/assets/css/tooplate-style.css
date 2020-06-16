@@ -103,15 +103,17 @@ a:focus {
 .tm-p-4 { padding: 2rem!important; }
 .tm-color-white { color: white; }
 .tm-color-primary {	color: #ee5057; }
+.tm-color-parraf {color: #333}
 .tm-bg-primary { background: #ee5057; }
 .tm-bg-gray { background: #F4F4F4; }
 .tm-bg-white { background: white; }
 .tm-bg-dark-blue { background: #1f3646; }
 
 .tm-bg-white-shadow {
-	-webkit-box-shadow: 0px 0px 7px 0px rgba(214,214,214,1);
-	-moz-box-shadow: 0px 0px 7px 0px rgba(214,214,214,1);
-	box-shadow: 0px 0px 7px 0px rgba(214,214,214,1);
+	-webkit-box-shadow: 0px 0px 7px 0px rgb(201, 47, 47);
+	-moz-box-shadow: 0px 0px 7px 0px rgb(207, 64, 64);
+  box-shadow: 0px 0px 7px 0px rgb(173, 48, 48);
+  /* background-color: #ee5057; */
 }
 
 .tm-section-pad { padding: 30px 50px; }
@@ -128,7 +130,7 @@ a.tm-color-primary:active {
 
 .tm-font-light { font-weight: 300; }
 .tm-font-normal { font-weight: 400; }
-.tm-font-semibold { font-weight: 600; }
+.tm-font-semibold { font-weight: 600; background-color: rgba(204, 204, 204, 0.788); padding: 10px; }
 
 p {
 	color: #898989;
@@ -152,12 +154,16 @@ p {
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(238, 80, 87, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    display: inline-block;
+
+    vertical-align: right;
+
 }
 
 
 .navbar-toggler {
 	border-color: rgb(238, 80, 87);
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .nav-item {
@@ -212,7 +218,7 @@ p {
 	height: 515px;
 }
 
-#tm-section-5 { background-image: url('../img/bg-img-2.jpg'); }
+#tm-section-5 { background-image: url('../img/trav.jpg'); }
 
 #tm-section-6 {
 	background-image: url('../img/bg-img-3.jpg');

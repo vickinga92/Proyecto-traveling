@@ -19,7 +19,6 @@
                   href="#"
                   class="img"
 						    ><img :src="photo" alt=""></a>
-                {{location_id}}
               </div>
               <div class="col-md-4">
                 <h3 class="tm-color-primary tm-article-title-1">{{name}}</h3>
@@ -31,8 +30,7 @@
                 <p>reviews {{num_reviews}}</p>
                 <p>votes {{helpful_votes}}</p>
 
-                <div>PRICE {{price.replace("€" && "-","").split("€").join()
-                  }}</div> <br>
+                <div>PRICE {{price.replace('€' && '-', "").split('€').join()}}--{{priceMin = price[1]}}</div> <br>
                    <button  @click.prevent="saveToFavorites"  class="btn btn-primary tm-btn-search">Save to Favorites</button>
 
               </div>
@@ -42,7 +40,8 @@
       </div>
     </div>
             </div>
-           <!--  || new Intl.NumberFormat("es-ES", {
+<!--             --{{priceMin = price[1]}}--{{priceMax = price[3]}}
+ -->           <!--  || new Intl.NumberFormat("es-ES", {
                               style: "currency",
                               currency: "EUR",
                             }).format(price) -->

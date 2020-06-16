@@ -83,11 +83,9 @@
         </div>
       </div>
     </div>
-    <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
-
+    <Carousel></Carousel>
     <FilterPriceHotel @change="hotelsFiltered"></FilterPriceHotel>
-
-     <HotelBox
+    <HotelBox
       v-for="item in hotels"
       :key="item.id"
       :location_id="item.location_id"
@@ -102,18 +100,16 @@
       :priceMin="item.priceMin"
       :priceMax="item.priceMax"
       @save="saveToFavorites(item)"
-      @get="getInformation"
+      @get="getInformation(item)"
     ></HotelBox>
   </div>
 </template>
 
 <script>
-
 import Swal from "sweetalert2";
+import Carousel from "@/components/Carousel";
 import HotelBox from "@/partials/HotelBox";
-import Introduction from "@/components/Introduction";
 import FilterPriceHotel from "@/components/FilterPriceHotel";
-
 
 export default {
   name: "SearchBox",
@@ -125,10 +121,10 @@ export default {
       nights: "",
       adultsSelected: "",
       roomsSelected: "",
-      filterSelected:"",
-      location_id:"",
+      filterSelected: "",
+      location_id: "",
 
-       listNumber: [
+      listNumber: [
         { id: 1, number: 1, value: "1" },
         { id: 2, number: 2, value: "2" },
         { id: 3, number: 3, value: "3" },
@@ -141,86 +137,99 @@ export default {
         { id: 10, number: 10, value: "10" }
       ],
       hotels: [
-         {
-        location_id:"",
-         photo:{
-            images:{
-              medium:{
-                url:""
-                }}},
+        {
+          location_id: "",
+          photo: {
+            images: {
+              medium: {
+                url: ""
+              }
+            }
+          },
           name: "",
           subcategory_type: "",
           hotel_class: "",
           location_string: "",
           num_reviews: "",
-          helpful_votes:{photo:{
-            helpful_votes:""
-          }},
+          helpful_votes: {
+            photo: {
+              helpful_votes: ""
+            }
+          },
           price: ""
         },
-         {
-        location_id:"987",
-          photo:{
-            images:{
-              medium:{
-                url:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hotelpasarela.com%2Fes%2F&psig=AOvVaw0SsBZiDRm1_Cjaw7IE0YhQ&ust=1591702671375000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCfwtuQ8ukCFQAAAAAdAAAAABAI"}
-                }
-              },
+        {
+          location_id: "987",
+          photo: {
+            images: {
+              medium: {
+                url:
+                  "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hotelpasarela.com%2Fes%2F&psig=AOvVaw0SsBZiDRm1_Cjaw7IE0YhQ&ust=1591702671375000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCfwtuQ8ukCFQAAAAAdAAAAABAI"
+              }
+            }
+          },
           name: "soy el hotel de prueba ",
           subcategory_type: "hotel",
           hotel_class: "5.0",
           location_string: "malaga",
           num_reviews: "237",
-          helpful_votes:{photo:{
-            helpful_votes:"98"
-          }},
+          helpful_votes: {
+            photo: {
+              helpful_votes: "98"
+            }
+          },
           price: "€88 - €99"
         },
         {
-        location_id:"1657593",
-          photo:{
-            images:{
-              medium:{
-                url:"https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hotelpasarela.com%2Fes%2F&psig=AOvVaw0SsBZiDRm1_Cjaw7IE0YhQ&ust=1591702671375000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCfwtuQ8ukCFQAAAAAdAAAAABAI"}
-                }
-              },
+          location_id: "1657593",
+          photo: {
+            images: {
+              medium: {
+                url:
+                  "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.hotelpasarela.com%2Fes%2F&psig=AOvVaw0SsBZiDRm1_Cjaw7IE0YhQ&ust=1591702671375000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCfwtuQ8ukCFQAAAAAdAAAAABAI"
+              }
+            }
+          },
           name: "soy el hotel de la informacion ",
           subcategory_type: "Pensión",
           hotel_class: "4.0",
           location_string: "Sevilla",
           num_reviews: "090",
-          helpful_votes:{photo:{
-            helpful_votes:"62"
-          }},
+          helpful_votes: {
+            photo: {
+              helpful_votes: "62"
+            }
+          },
           price: "€65 - €99"
         }
-
-      ],
-
+      ]
     };
   },
 
   methods: {
-hotelsFiltered(filterSelected){
- console.log(filterSelected)
-      if(filterSelected=="Ascendent"){
-        let priceFilteredAsc = this.hotels.sort(function (a, b){
-        return a.price - b.price;
-        })
-         let hotelsFilterByPriceAsc = this.hotels.filter(item=>item.price == this.priceFilteredAsc)
-       return hotelsFilterByPriceAsc
+    hotelsFiltered(filterSelected) {
+      console.log(filterSelected);
+      if (filterSelected == "Ascendent") {
+        let priceFilteredAsc = this.hotels.sort(function(a, b) {
+          return a.price - b.price;
+        });
+        let hotelsFilterByPriceAsc = this.hotels.filter(
+          item => item.price == this.priceFilteredAsc
+        );
+        return hotelsFilterByPriceAsc;
       }
 
-      if(filterSelected=="Descendent"){
-        let priceFilteredDesc = this.hotels.sort(function(a, b){
+      if (filterSelected == "Descendent") {
+        let priceFilteredDesc = this.hotels.sort(function(a, b) {
           return b.price - a.price;
-        })
-         let hotelsFilterByPriceDesc = this.hotels.filter(item=>item.price == this.priceFilteredDesc)
-       return hotelsFilterByPriceDesc
+        });
+        let hotelsFilterByPriceDesc = this.hotels.filter(
+          item => item.price == this.priceFilteredDesc
+        );
+        return hotelsFilterByPriceDesc;
       }
-
     },
-async searchHotel() {
+    async searchHotel() {
       let config = {
         method: "GET",
         headers: {
@@ -234,7 +243,7 @@ async searchHotel() {
         let city = await this.$axios.get(URL, config);
         console.log(city.data);
         this.location = city.data.data[0].result_object.location_id;
-        console.log(this.location)
+        console.log(this.location);
       } catch (err) {
         console.log(err.city.data.error);
       }
@@ -247,41 +256,44 @@ async searchHotel() {
         let response = await this.$axios.get(URL1, config);
         console.log(response.data);
         this.hotels = response.data.data;
-        this.location_id = response.data.data.location_id /// esta location_id no le dice de que hotel es??
-        console.log(this.location_id)
-
+        // this.location_id = item.location_id // response.data.data.location_id /// esta location_id no le dice de que hotel es??
+        console.log(this.location_id);
       } catch (err) {
+        console.log(err);
         console.log(err.response.data.error);
       }
     },
- async getInformation(){
-  console.log(this.location_id)
+    async getInformation(item) {
+      this.location_id = item.location_id;
+      console.log(this.location_id);
 
       this.$router.push(`/Hotels/${this.location_id}`);
-     },
+    },
     async saveToFavorites(item) {
       let config = {
         headers: {
           Authorization: `Bearer ${window.localStorage.getItem("token")}`
         }
       };
-      let newFavorite =
-        {
-          location_id:item.location_id,
-          photo: item.photo.images.medium.url,
-          name: item.name,
-          subcategory_type: item.subcategory_type,
-          hotel_class:item.hotel_class,
-          location_string: item.location_string,
-          num_reviews: item.num_reviews,
-          helpful_votes: item.photo.helpful_votes,
-          price: item.price,
-        }
-        console.log('<<<<<<<', newFavorite);
+      let newFavorite = {
+        location_id: item.location_id,
+        photo: item.photo.images.medium.url,
+        name: item.name,
+        subcategory_type: item.subcategory_type,
+        hotel_class: item.hotel_class,
+        location_string: item.location_string,
+        num_reviews: item.num_reviews,
+        helpful_votes: item.photo.helpful_votes,
+        price: item.price
+      };
+      console.log("<<<<<<<", newFavorite);
       try {
         let response = await this.$axios.post(
-          "http://localhost:8082/favorites", newFavorite, config);
-          console.log('respuesta', response.data)
+          "http://localhost:8082/favorites",
+          newFavorite,
+          config
+        );
+        console.log("respuesta", response.data);
 
         this.$router.push("/myfavorites");
       } catch (err) {
@@ -297,9 +309,8 @@ async searchHotel() {
   },
   components: {
     HotelBox,
-    Introduction,
-    FilterPriceHotel
-
+    FilterPriceHotel,
+    Carousel
   }
 };
 </script>
