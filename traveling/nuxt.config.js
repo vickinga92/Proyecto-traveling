@@ -33,7 +33,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@plugins/filters.js'
+    '@plugins/filters.js',
+    { src: '@/plugins/vue-youtube.js', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules

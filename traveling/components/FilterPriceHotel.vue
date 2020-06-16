@@ -5,7 +5,7 @@
     <div class="container-fluid">
      <div class="row">
         <div class="col-md-6">
-          <h3 class="text-center">
+          <h3 class="text-center ttm-bg-dark-blue tm-article-title-1">
             FILTERS YOURS HOTELS BY PRICE
           </h3>
         </div>

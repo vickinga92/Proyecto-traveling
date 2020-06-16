@@ -2,7 +2,7 @@
 
   <div class="tm-main-content" id="top">
   <div class="tm-top-bar-bg"></div>
-    <Introduction title="SEARCH YOUR FAVORITE HOTEL" subtitle="Save your favorites"></Introduction>
+    <Introduction title="SEARCH YOUR DESTINITY HOTEL" subtitle="And save your favorites"></Introduction>
     <SearchBox ></SearchBox>
 
    </div>

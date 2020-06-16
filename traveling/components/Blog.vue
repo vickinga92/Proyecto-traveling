@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-12">
-    <div class=" container ml-auto tm-bg-white-shadow tm-pad">
+    <div class=" container ml-auto tm-bg-border-shadow tm-pad">
       <article class="media tm-margin-b-20 tm-media-1">
         <img src="@/assets/img/img-05.jpg" alt="Image" />
         <div class="media-body tm-media-body-1 tm-media-body-v-center">

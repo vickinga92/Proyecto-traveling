@@ -27,7 +27,8 @@
     "sweetalert2": "^9.14.0",
     "vue-hotel-datepicker": "^3.0.5",
     "vue-moment": "^4.1.0",
-    "vue-sweetalert2": "^3.0.5"
+    "vue-sweetalert2": "^3.0.5",
+    "vue-youtube-embed": "^2.2.2"
   },
   "devDependencies": {
     "@nuxtjs/moment": "^1.6.1"

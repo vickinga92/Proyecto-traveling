@@ -20,6 +20,8 @@
         </div>
       </div>
     </div>
+  <Videos></Videos>
+
   </div>
 </template>
 
@@ -27,6 +29,8 @@
 import Introduction from "@/components/Introduction";
 import Blog from "@/components/Blog";
 import Recomendations from "@/components/Recomendations";
+import Videos from "@/components/Videos";
+
 
 export default {
   name: "index",
@@ -50,7 +54,8 @@ export default {
   components: {
     Introduction,
     Blog,
-    Recomendations
+    Recomendations,
+    Videos
   }
 };
 </script>

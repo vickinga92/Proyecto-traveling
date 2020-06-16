@@ -2,6 +2,7 @@
   <div>
      <div class="tm-top-bar-bg"></div>
     <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
+    <Carousel></Carousel>
     <FilterPriceHotel @change="hotelsFiltered"></FilterPriceHotel>
     <FavoritesHotels
       v-for="item in favoritesHotels"
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import Carousel from "@/components/Carousel";
 import FavoritesHotels from "@/partials/FavoritesHotels";
 import Introduction from "@/components/Introduction";
 import FilterPriceHotel from "@/components/FilterPriceHotel";
@@ -54,6 +56,7 @@ export default {
   },
   components: {
     Introduction,
+    Carousel,
     FavoritesHotels,
     FilterPriceHotel
   }
@@ -61,4 +64,5 @@ export default {
 </script>
 
 <style>
+
 </style>
