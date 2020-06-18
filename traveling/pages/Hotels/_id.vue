@@ -39,7 +39,6 @@ data(){
           "x-rapidapi-key": "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
         }
       };
-
       try {
       const URL2 = `https://tripadvisor1.p.rapidapi.com/hotels/get-details?location_id=${this.$route.params.id}`;
         let information = await this.$axios.get(URL2, config);

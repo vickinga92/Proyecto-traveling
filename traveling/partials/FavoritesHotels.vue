@@ -18,7 +18,7 @@
               	<a
                   href="#"
                   class="img"
-						    ><img :src="photo" alt=""></a>
+						    ><img :src="photo" alt="" style="width: 250px;"></a>
 
               </div>
               <div class="col-md-4">

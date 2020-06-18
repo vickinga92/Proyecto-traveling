@@ -41,6 +41,7 @@ router.route('/favorites')
 
 router.route('/favorites/filterDesc')
 .get(mustAuth(), async (req, res) => {
+
   filters= {userId : req.user._id}
   filterPriceDesc = {price: -1}
 

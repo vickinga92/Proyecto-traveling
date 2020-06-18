@@ -13,8 +13,6 @@
               background="#ababab"
               img-width="1024"
               img-height="480"
-              @sliding-start="onSlideStart"
-              @sliding-end="onSlideEnd"
             >
               <div class="carousel-slide">
                 <b-carousel-slide
@@ -74,8 +72,7 @@ export default {
   name: "Recomendations",
   data() {
     return {
-        slide: 0,
-      sliding: null,
+      slide: 0,
       places: [
         { name: "Europe", img: require("../assets/img/tn-img-01.jpg") },
         { name: "Asia", img: require("../assets/img/tn-img-02.jpg") },
@@ -117,14 +114,7 @@ export default {
           img: require("../assets/img/viena.jpg")
         }
       ],
-      methods: {
-      onSlideStart(slide) {
-        this.sliding = true
-      },
-      onSlideEnd(slide) {
-        this.sliding = false
-      }
-    }
+
     };
   }
 };

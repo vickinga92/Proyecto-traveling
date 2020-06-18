@@ -40,8 +40,17 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxtjs/moment'
+    '@nuxtjs/moment',
   ],
+    moment: {
+      "compilerOptions": {
+        "types": [
+          "@nuxt/types",
+          "@nuxtjs/moment"
+        ]
+      }
+    },
+
   /*
   ** Nuxt.js modules
   */

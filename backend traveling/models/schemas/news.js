@@ -8,8 +8,6 @@ titles: { type: String, required: false, index : {
 }},
 link: { type: String, required: false },
 
-//photo: { type: String, required: false },
-
 });
 
 module.exports = NewsSchema

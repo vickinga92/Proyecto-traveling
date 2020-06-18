@@ -51,7 +51,7 @@ export default {
        this.$store.dispatch('deleteFavorite', {id: id})
     },
      hotelsFiltered(filterSelected){
-      this.$store.dispatch('hotelsFiltered', {filterSelected})
+      this.$store.dispatch('hotelsFilteredInMongo', {filterSelected})
     }
   },
   components: {
