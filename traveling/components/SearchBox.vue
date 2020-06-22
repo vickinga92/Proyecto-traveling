@@ -97,8 +97,6 @@
       :num_reviews="item.num_reviews"
       :helpful_votes="item.photo.helpful_votes"
       :price="item.price"
-      :priceMin="item.priceMin"
-      :priceMax="item.priceMax"
       @save="saveToFavorites(item)"
       @get="getInformation(item)"
     ></HotelBox>
@@ -110,6 +108,7 @@ import Swal from "sweetalert2";
 import Carousel from "@/components/Carousel";
 import HotelBox from "@/partials/HotelBox";
 import FilterPriceHotel from "@/components/FilterPriceHotel";
+
 
 export default {
   name: "SearchBox",
@@ -173,7 +172,7 @@ export default {
   computed: {
     hotels() {
       return this.$store.state.hotels;
-    }
+    },
   },
   methods: {
     city() {
@@ -197,32 +196,9 @@ export default {
     hotelsFiltered(filterSelected) {
       this.$store.commit("setHotelsFiltered", { filterSelected });
     },
-    /*   hotelsFiltered(filterSelected) {
-      console.log(filterSelected);
-      if (filterSelected == "Ascendent") {
-        let priceFilteredAsc = this.hotels.sort(function(a, b) {
-          return a.price - b.price;
-        });
-        let hotelsFilterByPriceAsc = this.hotels.filter(
-          item => item.price == this.priceFilteredAsc
-        );
-        return hotelsFilterByPriceAsc;
-      }
 
-      if (filterSelected == "Descendent") {
-        let priceFilteredDesc = this.hotels.sort(function(a, b) {
-          return b.price - a.price;
-        });
-        let hotelsFilterByPriceDesc = this.hotels.filter(
-          item => item.price == this.priceFilteredDesc
-        );
-        return hotelsFilterByPriceDesc;
-      }
-    }, */
     async getInformation(item) {
       this.location_id = item.location_id;
-      console.log(this.location_id);
-
       this.$router.push(`/Hotels/${this.location_id}`);
     },
     async saveToFavorites(item) {
@@ -261,12 +237,12 @@ export default {
         });
         this.$router.push("/login");
       }
-    },
+    }
   },
   components: {
     HotelBox,
     FilterPriceHotel,
-    Carousel
+    Carousel,
   }
 };
 </script>

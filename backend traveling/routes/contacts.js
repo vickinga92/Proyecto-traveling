@@ -23,8 +23,8 @@ router.route('/contacts')
   .post(async (req, res) => {
     let data = req.body
     console.log(data)
-    try{
-      //let newContact = await messaging.onMessage(data.name, data.email, data.subject, data.message)
+    try {
+
       let messageInfo = {
         name: data.name,
         email: data.email,
@@ -35,10 +35,9 @@ router.route('/contacts')
       console.log(messageInfo)
       dbFirebase.firestore.collection('contacts').push(messageInfo);
       res.send('received')
-     // let newContactInMongo = await new Contact(messageInfo).save()
-     // res.json(newContactInMongo)
-    }catch(e){
-      res.status(500).json({error: e.message})
+
+    } catch (e) {
+      res.status(500).json({ error: e.message })
     }
     res.status(201).json(messageInfo)
   })
@@ -61,7 +60,7 @@ router.route('/contacts/:id')
 
     let searchId = req.params.id
 
-    let foundItem = await Contact.findOneAndDelete({_id: searchId}).exec()
+    let foundItem = await Contact.findOneAndDelete({ _id: searchId }).exec()
 
     if (!foundItem) {
       res.status(404).json({ 'message': 'El elemento que intentas eliminar no existe' })

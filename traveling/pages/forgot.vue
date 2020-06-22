@@ -25,25 +25,27 @@
 <script>
 export default {
   name: "Forgot",
-  data(){
-    return{
-      email:""
-    }
+  data() {
+    return {
+      email: ""
+    };
   },
-  methods:{
+  methods: {
     async forgotPass() {
       let sendEmail = {
-        email: this.email,
+        email: this.email
       };
       try {
         let response = await this.$axios.post(
-          "http://localhost:8082/auth/forgotten-password", sendEmail);
+          "http://localhost:8082/auth/forgotten-password",
+          sendEmail
+        );
 
-            this.$router.push("/login");
+        this.$router.push("/login");
       } catch (err) {
         console.log(err.response.data.error);
       }
     }
   }
-}
+};
 </script>

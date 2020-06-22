@@ -26,8 +26,7 @@
               />
             </div>
             <button type="submit" class="btn btn-default" @click.prevent="register">SING IN</button>
-            <br />
-            <h3 class="text-center">Already have an account?</h3>
+            <h3 class="register-area">Already have an account?</h3>
             <button type="submit" class="btn btn-default">
               <nuxt-link to="/login">LOGIN</nuxt-link>
             </button>

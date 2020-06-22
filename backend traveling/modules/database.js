@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const config = require('./config')
 
 class Database {
-  constructor(){
+  constructor() {
     this.db = null
   }
 
@@ -10,9 +10,9 @@ class Database {
 
     this.db = mongoose.connection;
 
-    try{
-      await mongoose.connect(process.env.DB_CONNECTION || config.DB_CONNECTION, {useFindAndModify:false, useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
-    }catch(e){
+    try {
+      await mongoose.connect(process.env.DB_CONNECTION || config.DB_CONNECTION, { useFindAndModify: false, useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
+    } catch (e) {
       console.log("error al conectar a la base de datos")
       console.error(e)
     }

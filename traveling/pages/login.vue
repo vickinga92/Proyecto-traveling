@@ -30,13 +30,11 @@
             </label>
           </div>
           <button @click.prevent="login" type="submit" class="btn btn-default">LOGIN</button>
-          <br />
-          <h3 class="text-center">Forgot password?</h3>
+          <h3 class="login-area">Forgot password?</h3>
           <button type="submit" class="btn btn-default">
             <nuxt-link to="/forgot">RECOVER PASSWORD</nuxt-link>
           </button>
-          <br />
-          <h3 class="text-center">Don't have an account yet?</h3>
+          <h3 class="login-area">Don't have an account yet?</h3>
           <button type="submit" class="btn btn-default">
             <nuxt-link to="/register">SING IN</nuxt-link>
           </button>
@@ -59,7 +57,6 @@ export default {
   },
 
   methods: {
-
     async login() {
       let loginData = {
         email: this.email,
@@ -67,7 +64,8 @@ export default {
       };
 
       const validatedEmail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(
-        this.email);
+        this.email
+      );
       if (
         loginData.email !== "" &&
         loginData.password !== "" &&
@@ -76,10 +74,11 @@ export default {
         try {
           let response = await this.$axios.post(
             "http://localhost:8082/auth/login",
-            loginData);
+            loginData
+          );
 
           window.localStorage.setItem("token", response.data.token);
-          this.$store.dispatch('login')
+          this.$store.dispatch("login");
           this.$router.push("/");
         } catch (err) {
           Swal.fire({
@@ -97,8 +96,7 @@ export default {
         title: "Oops...",
         text: "Debe incluir un email válido!"
       });
-    },
-
-  },
+    }
+  }
 };
 </script>

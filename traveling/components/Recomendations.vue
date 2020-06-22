@@ -30,7 +30,7 @@
                       img-alt="Blank image"
                     />
                     <div class="tm-article-pad">
-                        <h3 class="text-uppercase tm-article-title-2 text-center">{{item.title}}</h3>
+                      <h3 class="text-uppercase tm-article-title-2 text-center">{{item.title}}</h3>
                       <p class="tm-article-title-3 tm-color-parraf">{{item.desc}}</p>
                       <a href="#" class="text-uppercase btn-primary tm-btn-primary">Get More Info.</a>
                     </div>
@@ -113,8 +113,7 @@ export default {
             "Vienna has a wonderful city of colors with spectacular palaces and gardens to visit",
           img: require("../assets/img/viena.jpg")
         }
-      ],
-
+      ]
     };
   }
 };
@@ -124,5 +123,4 @@ export default {
 .img-fluid {
   width: 729px;
 }
-
 </style>

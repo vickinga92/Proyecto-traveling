@@ -1,12 +1,13 @@
 <template>
   <div>
-     <div class="tm-top-bar-bg"></div>
+    <div class="tm-top-bar-bg"></div>
     <Introduction title="Your Favorites Hotels" subtitle="Visits your favorites hotels"></Introduction>
     <Carousel></Carousel>
     <FilterPriceHotel @change="hotelsFiltered"></FilterPriceHotel>
     <FavoritesHotels
       v-for="item in favoritesHotels"
       :key="item._id"
+      :location_id="item.location_id"
       :photo="item.photo"
       :name="item.name"
       :subcategory_type="item.subcategory_type"
@@ -16,9 +17,9 @@
       :helpful_votes="item.helpful_votes"
       :price="item.price"
       @delete="deleteFavorite(item._id)"
+      @get="getInformation(item)"
     ></FavoritesHotels>
   </div>
-
 </template>
 
 <script>
@@ -31,28 +32,31 @@ import Swal from "sweetalert2";
 
 export default {
   name: "MyFavorites",
-  middleware : 'isPrivate',
+  middleware: "isPrivate",
   data() {
     return {
-      filterSelected:""
+      filterSelected: "",
     };
   },
   async mounted() {
-   await this.$store.dispatch('getAllFavorites')
-
+    await this.$store.dispatch("getAllFavorites");
   },
-   computed:{
-       favoritesHotels(){
-        return this.$store.state.favoritesHotels
-      },
+  computed: {
+    favoritesHotels() {
+      return this.$store.state.favoritesHotels;
+    }
   },
   methods: {
-    deleteFavorite(id){
-       this.$store.dispatch('deleteFavorite', {id: id})
+    deleteFavorite(id) {
+      this.$store.dispatch("deleteFavorite", { id: id });
     },
-     hotelsFiltered(filterSelected){
-      this.$store.dispatch('hotelsFilteredInMongo', {filterSelected})
-    }
+    hotelsFiltered(filterSelected) {
+      this.$store.dispatch("hotelsFilteredInMongo", { filterSelected });
+    },
+     async getInformation(item) {
+      this.location_id = item.location_id;
+      this.$router.push(`/Hotels/${this.location_id}`);
+    },
   },
   components: {
     Introduction,
@@ -64,5 +68,4 @@ export default {
 </script>
 
 <style>
-
 </style>

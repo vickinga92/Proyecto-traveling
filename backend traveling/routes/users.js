@@ -3,7 +3,7 @@ const router = express.Router()
 const User = require('../models/users')
 const firebase = require('firebase')
 
-async function createUserFirebase(email, password){
+async function createUserFirebase(email, password) {
 
   let response = await firebase.auth().createUserWithEmailAndPassword(email, password)
   return response
@@ -15,10 +15,10 @@ async function createUserFirebase(email, password){
 } */
 
 router.route('/users')
-  .post(async (req, res)=>{
+  .post(async (req, res) => {
     let data = req.body
 
-    try{
+    try {
       let newUser = await createUserFirebase(data.email, data.password)
       let userInfo = {
         email: data.email,
@@ -27,8 +27,8 @@ router.route('/users')
       let newUserInMongo = await new User(userInfo).save();
 
       res.json(newUserInMongo)
-    }catch(e){
-      res.status(500).json({error: e.message})
+    } catch (e) {
+      res.status(500).json({ error: e.message })
     }
 
   })

@@ -1,17 +1,17 @@
-if(process.env.NODE_ENV !=='production') {
+if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv')
   const result = dotenv.config()
-	envs = result.parsed
+  envs = result.parsed
 
-/*   if(result.error){
-    throw result.error
-  }
+  /*   if(result.error){
+      throw result.error
+    }
 
-  const envs = result.parsed
+    const envs = result.parsed
 
-  module.exports = envs
-}else{
-  module.exports = process.env */
+    module.exports = envs
+  }else{
+    module.exports = process.env */
 }
 
 
@@ -29,11 +29,11 @@ const firebaseConfig = {
 };
 
 
-const mongoConfig = process.env.DB_CONNECTION  || envs.DB_CONNECTION ;
-const jwtPassword = process.env.JWT_PASSWORD  || envs.JWT_PASSWORD ;
+const mongoConfig = process.env.DB_CONNECTION || envs.DB_CONNECTION;
+const jwtPassword = process.env.JWT_PASSWORD || envs.JWT_PASSWORD;
 
 const config = {
-	firebaseConfig,
+  firebaseConfig,
   mongoConfig,
   jwtPassword
 }

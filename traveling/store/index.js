@@ -80,7 +80,6 @@ export const actions = {
       let response = await this.$axios.delete(
         `http://localhost:8082/favorites/${payload.id}`,
         config
-
       );
       context.dispatch('getAllFavorites')
       Swal.fire({
@@ -88,7 +87,6 @@ export const actions = {
         title: "ok...",
         text: "se ha eliminado correctamente!",
       });
-
     } catch (err) {
       console.log(err)
       console.log("no se conecta", err.response.data.error);
@@ -157,39 +155,32 @@ export const mutations = {
     state.news = newsArt
   },
   setHotels(state, hotels) {
-    // hotels.price = "€80 - €90"   ======> 80
-    // https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/String/split
-    // ["€80", "€90"]
-    // "€80"
-    // let newPrice = 80
-    // hotels.price = newPrice
+
+    hotels.filter(hotel => hotel.price == undefined && hotel.photo.images.medium.url == undefined)
+
     state.hotels = hotels
-    let price = hotels.price.split("-")
-    var newPrice = price.substr(0, 4).replace("€", "")
-    hotels.price = newPrice
+    var newPrice = []
+    //se puede hace con un map
+    hotels.forEach(hotel => {
+      newPrice = hotel.price.split("-")
+      newPrice[0].replace("€", "").trim()
+      hotel.price = newPrice
+      hotels.filter_price = newPrice[0]
+    });
   },
   setHotelsFiltered(state, payload) {
     console.log(payload.filterSelected)
-
     if (payload.filterSelected == "Ascendent") {
-      let priceFilteredAsc = state.hotels.sort(function (a, b) {
-        return a.newPrice - b.newPrice;
-      });
-      console.log(priceFilteredAsc)
-
-      let hotelsFilterByPriceAsc = state.hotels.filter(
-        item => item.newPrice == priceFilteredAsc
-      );
-      return (state.hotels, hotelsFilterByPriceAsc);
+      let priceFilteredAsc = state.hotels.sort((a, b) => {
+        return a.filter_price - b.filter_price
+      })
+      return priceFilteredAsc
     }
     if (payload.filterSelected == "Descendent") {
       let priceFilteredDesc = state.hotels.sort(function (a, b) {
-        return a.newPrice - b.newPrice;
+        return b.filter_price - a.filter_price;
       });
-      let hotelsFilterByPriceDesc = state.hotels.filter(
-        item => item.newPrice == priceFilteredDesc
-      );
-      return (state.hotels, hotelsFilterByPriceDesc);
+      return priceFilteredDesc
     }
   },
 }

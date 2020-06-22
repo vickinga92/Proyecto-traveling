@@ -47,9 +47,10 @@ http://www.tooplate.com/view/2095-level
 .login-area h3,
 .register-area h3 {
 	margin-top: 0;
-	margin-bottom: 25px;
+	margin-bottom: 25px 25px;
 	font-size: 22px;
-	color: #fff;
+  color: #fff;
+  padding: 10px;
 }
 
 .login-area form,
@@ -88,7 +89,7 @@ body {
 	overflow-x: hidden;
 }
 
-a, button { transition: all 0.3s ease; }
+a, button { transition: all 0.3s ease;}
 a:hover,
 a:focus {
 	text-decoration: none;
@@ -155,11 +156,8 @@ p {
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(238, 80, 87, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
     display: inline-block;
-
     vertical-align: right;
-
 }
-
 
 .navbar-toggler {
 	border-color: rgb(238, 80, 87);
@@ -396,7 +394,8 @@ select.tm-select::-ms-expand { display: none; }
 .tm-article-title-2 {
 	font-size: 1rem;
 	font-weight: 700;
-	letter-spacing: 1px;
+  letter-spacing: 1px;
+  padding: 20px;
 }
 
 .tm-article-title-3 { font-size: 1.1rem; }
