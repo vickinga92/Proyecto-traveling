@@ -156,7 +156,8 @@ export const mutations = {
   },
   setHotels(state, hotels) {
 
-    hotels.filter(hotel => hotel.price == undefined && hotel.photo.images.medium.url == undefined)
+    hotels.filter(hotel => hotel.price !== undefined &&
+      hotel.photo.images.medium.url !== undefined)
 
     state.hotels = hotels
     var newPrice = []

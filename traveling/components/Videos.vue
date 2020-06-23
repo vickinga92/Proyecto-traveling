@@ -6,7 +6,7 @@
         <div class="col-sm-12">
           <h2 class="tm-color-primary tm-article-title-1 text-center">TRAVEL VIDEOS</h2>
         </div>
-          <div v-if="!isLoading" class="loadingio-spinner-wedges-yfccohjb1je col-sm-12">
+          <div v-if="!isLoaded" class="loadingio-spinner-wedges-yfccohjb1je">
             <div class="ldio-hp0svjql4j9">
               <div>
                 <div>
@@ -38,7 +38,7 @@ export default {
 
   data() {
     return {
-      isLoading: false,
+      isLoaded: false,
       videos: [
         { id: 1, videoId: "E3jhbnXF0f4" },
         { id: 2, videoId: "BGlzHF9_RXM" },
