@@ -57,7 +57,7 @@ export default {
       };
       try {
         let response = await this.$axios.post(
-          "http://localhost:8082/users",
+          "https://traveling-to.herokuapp.com/users",
           UserRegister
         );
         this.$router.push("/login");

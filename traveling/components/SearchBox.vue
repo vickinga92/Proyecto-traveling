@@ -221,7 +221,7 @@ export default {
       console.log("<<<<<<<", newFavorite);
       try {
         let response = await this.$axios.post(
-          "http://localhost:8082/favorites",
+          "https://traveling-to.herokuapp.com/favorites",
           newFavorite,
           config
         );
@@ -229,6 +229,7 @@ export default {
 
         this.$router.push("/myfavorites");
       } catch (err) {
+        console.log(err)
         console.log("no se conecta", err.response.data.error);
         Swal.fire({
           icon: "error",

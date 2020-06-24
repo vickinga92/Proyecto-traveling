@@ -35,7 +35,8 @@ export default {
         method: "GET",
         headers: {
           "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
-          "x-rapidapi-key": "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
+          "x-rapidapi-key": "0901c50afdmsh35b7abe64c3e29cp1e08aajsnc53caebf6240"
+          //ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177
         }
       };
       try {

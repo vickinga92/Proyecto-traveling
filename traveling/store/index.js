@@ -29,8 +29,9 @@ export const actions = {
       method: "GET",
       headers: {
         "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": "ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177"
+        "x-rapidapi-key": "0901c50afdmsh35b7abe64c3e29cp1e08aajsnc53caebf6240"
       }
+      //ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177
     };
     try {
       console.log(payload)
@@ -58,7 +59,7 @@ export const actions = {
 
     try {
       let response = await this.$axios.get(
-        "http://localhost:8082/favorites",
+        "https://traveling-to.herokuapp.com/favorites",
         config
       );
       console.log(response);
@@ -78,7 +79,7 @@ export const actions = {
 
     try {
       let response = await this.$axios.delete(
-        `http://localhost:8082/favorites/${payload.id}`,
+        `https://traveling-to.herokuapp.com/favorites/${payload.id}`,
         config
       );
       context.dispatch('getAllFavorites')
@@ -100,7 +101,7 @@ export const actions = {
     };
     if (payload.filterSelected == "Ascendent") {
       try {
-        const Asc = "http://localhost:8082/favorites/filterAsc"
+        const Asc = "https://traveling-to.herokuapp.com/favorites/filterAsc"
         let filterA = await this.$axios.get(Asc, config);
         context.commit('setFavoritesHotels', filterA.data)
       } catch (err) {
@@ -108,7 +109,7 @@ export const actions = {
       }
     }
     if (payload.filterSelected == "Descendent") {
-      const Desc = "http://localhost:8082/favorites/filterDesc"
+      const Desc = "https://traveling-to.herokuapp.com/favorites/filterDesc"
       try {
         let filterD = await this.$axios.get(Desc, config);
         context.commit('setFavoritesHotels', filterD.data)
@@ -119,7 +120,7 @@ export const actions = {
   },
   async getNews(context) {
     try {
-      let news = await this.$axios.get("http://localhost:8082/news");
+      let news = await this.$axios.get("https://traveling-to.herokuapp.com/news");
       console.log(news)
       context.commit('setNews', news.data)
       console.info(news)
@@ -161,16 +162,22 @@ export const mutations = {
 
     state.hotels = hotels
     var newPrice = []
-    //se puede hace con un map
+    // comprobar que images existe, si no exite url por defecto
     hotels.forEach(hotel => {
+
+      if(!hotel.photo.images.medium.url){
+        hotel.photo.images.medium.url ="https://image.flaticon.com/icons/svg/2038/2038263.svg"
+      }
       newPrice = hotel.price.split("-")
       newPrice[0].replace("€", "").trim()
       hotel.price = newPrice
       hotels.filter_price = newPrice[0]
     });
   },
+
   setHotelsFiltered(state, payload) {
     console.log(payload.filterSelected)
+    console.log(state.hotels.filter_price)
     if (payload.filterSelected == "Ascendent") {
       let priceFilteredAsc = state.hotels.sort((a, b) => {
         return a.filter_price - b.filter_price

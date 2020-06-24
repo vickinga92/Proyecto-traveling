@@ -73,7 +73,7 @@ export default {
       ) {
         try {
           let response = await this.$axios.post(
-            "http://localhost:8082/auth/login",
+            "https://traveling-to.herokuapp.com/auth/login",
             loginData
           );
 

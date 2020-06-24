@@ -15,7 +15,8 @@
             <div class="row">
               <div class="col-md-4">
                 <a href="#" class="img">
-                  <img :src="photo" alt style="width: 250px;" />
+                  <img v-if="photo" :src="photo" alt style="width: 250px;" />
+                  <img v-if="!photo" src="https://image.flaticon.com/icons/svg/2038/2038263.svg" alt="">
                 </a>
               </div>
               <div class="col-md-4">
