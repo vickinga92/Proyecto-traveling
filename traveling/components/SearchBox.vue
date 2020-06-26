@@ -66,9 +66,7 @@
                       id="Rooms"
                       v-model="search.roomsSelected"
                     >
-                      <option value>
-                        Rooms
-                      </option>
+                      <option value>Rooms</option>
                       <option v-for="item in listNumber" :key="item.id">{{item.number}}</option>
                     </select>
                   </div>
@@ -220,7 +218,6 @@ export default {
         helpful_votes: item.photo.helpful_votes,
         price: item.price
       };
-      console.log("<<<<<<<", newFavorite);
       try {
         let response = await this.$axios.post(
           "https://traveling-to.herokuapp.com/favorites",

@@ -13,7 +13,7 @@ function mustAuth() {
       let user = jwt.verify(token, config.jwtPassword);
       req.user = user;
     } catch (err) {
-      res.status(401).json({ message: "Token inválido"});
+      res.status(401).json({ message: "Token inválido" });
       return;
     }
     next();

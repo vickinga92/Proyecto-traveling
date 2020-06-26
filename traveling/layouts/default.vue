@@ -7,36 +7,50 @@
 </template>
 
 <script>
-import MainNav from '@/components/MainNav'
-import MainFooter from '@/components/MainFooter'
+import MainNav from "@/components/MainNav";
+import MainFooter from "@/components/MainFooter";
 
 export default {
-   data(){
-    return{
-         menu: [
-        {id: 1, path: "/", name: "HOME", meta: { isPrivate: false }},
-        {id: 2, path: "/hotels", name: "HOTELS", meta: { isPrivate: false }},
-        {id: 3, path: "/flights", name: "FLIGHTS", meta: { isPrivate: false }},
-        {id: 4, path: "/contact", name: "CONTACTS US", meta: { isPrivate: false }},
-        {id: 5, path: "/myfavorites", name: "MY FAVORITES", meta: { isPrivate: true }},
+  data() {
+    return {
+      menu: [
+        { id: 1, path: "/", name: "HOME", meta: { isPrivate: false } },
+        { id: 2, path: "/hotels", name: "HOTELS", meta: { isPrivate: false } },
+        {
+          id: 3,
+          path: "/flights",
+          name: "FLIGHTS",
+          meta: { isPrivate: false }
+        },
+        {
+          id: 4,
+          path: "/contact",
+          name: "CONTACTS US",
+          meta: { isPrivate: false }
+        },
+        {
+          id: 5,
+          path: "/myfavorites",
+          name: "MY FAVORITES",
+          meta: { isPrivate: true }
+        }
       ]
+    };
+  },
+  async mounted() {
+    await this.$store.dispatch("login");
+  },
+  computed: {
+    isPrivate() {
+      return this.$store.state.isAuth;
     }
   },
-async mounted(){
-  await this.$store.dispatch('login')
-},
-computed:{
-    isPrivate(){
-      return this.$store.state.isAuth
-    }
-  },
-  components:{
+  components: {
     MainNav,
-    MainFooter,
+    MainFooter
   }
-}
+};
 </script>
 
 <style>
-
 </style>

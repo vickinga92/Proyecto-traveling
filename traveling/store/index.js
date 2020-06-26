@@ -31,14 +31,11 @@ export const actions = {
         "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
         "x-rapidapi-key": "0901c50afdmsh35b7abe64c3e29cp1e08aajsnc53caebf6240"
       }
-      //ab459f0c2bmsh8151e1f61dd047dp1eb171jsnfe297ef8c177
     };
     try {
-      console.log(payload)
       const URL = `https://tripadvisor1.p.rapidapi.com/locations/search?location_id=1&limit=30&sort=relevance&offset=0&lang=en_ES&currency=EUR&units=km&query=${payload.city}`;
 
       let city = await this.$axios.get(URL, config);
-      console.log(city.data);
       var location = city.data.data[0].result_object.location_id
 
       const URL1 = `https://tripadvisor1.p.rapidapi.com/hotels/list?currency=EUR&lang=en_ES&location_id=${location}&adults=${payload.adultsSelected}&checkin=${payload.checkIn}&rooms=${payload.roomsSelected}&nights=${payload.nights}`;
@@ -184,7 +181,7 @@ export const mutations = {
     if (payload.filterSelected == "Descendent") {
       let priceFilteredDesc = state.hotels.sort(function (a, b) {
         if (a.price !== undefined && b.price !== undefined) {
-        return parseInt(b.price.replace('€', '').trim()) - parseInt(a.price.replace('€', '').trim())
+          return parseInt(b.price.replace('€', '').trim()) - parseInt(a.price.replace('€', '').trim())
         }
       });
       return priceFilteredDesc

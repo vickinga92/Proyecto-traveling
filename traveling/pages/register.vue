@@ -69,12 +69,6 @@ export default {
         });
         console.log(err.response.data.error);
       }
-      /* try{
-          let response = await this.$fireAuth.sendEmailVerification(this.email)
-      }catch(e){
-        console.log(err.response.data.error);
-
-      } */
     }
   }
 };

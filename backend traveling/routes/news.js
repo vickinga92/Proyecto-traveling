@@ -5,8 +5,6 @@ const News = require('../models/news')
 const cheerio = require('cheerio');
 const axios = require('axios')
 
-//scraping
-
 async function init() {
 
   try {
@@ -35,19 +33,6 @@ async function init() {
 
       res.json(newsList)
     })
-  /* .post(async (req, res)=>{
-  try{
-       let titlesList =  {
-      titles : titles,
-      link : link,
-    }
-    let titleInMongo = await new News(news).save()
-    res.json(titleInMongo);
-
-  }catch (e){
-    res.status(500).json({error:e.message})
-  }
-  }) */
 }
 init();
 

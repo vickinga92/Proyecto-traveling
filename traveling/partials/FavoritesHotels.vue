@@ -61,8 +61,8 @@ export default {
     deleteFavorite() {
       this.$emit("delete");
     },
-    getInformation(){
-      this.$emit("get")
+    getInformation() {
+      this.$emit("get");
     }
   }
 };

@@ -35,7 +35,7 @@ export default {
   middleware: "isPrivate",
   data() {
     return {
-      filterSelected: "",
+      filterSelected: ""
     };
   },
   async mounted() {
@@ -53,10 +53,10 @@ export default {
     hotelsFiltered(filterSelected) {
       this.$store.dispatch("hotelsFilteredInMongo", { filterSelected });
     },
-     async getInformation(item) {
+    async getInformation(item) {
       this.location_id = item.location_id;
       this.$router.push(`/Hotels/${this.location_id}`);
-    },
+    }
   },
   components: {
     Introduction,

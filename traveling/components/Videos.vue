@@ -30,7 +30,7 @@ export default {
         { id: 6, videoId: "OjDYCNJ5QlU" }
       ]
     };
-  },
+  }
 };
 </script>
 

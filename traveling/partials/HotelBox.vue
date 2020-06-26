@@ -16,7 +16,11 @@
               <div class="col-md-4">
                 <a href="#" class="img">
                   <img v-if="photo" :src="photo" alt style="width: 250px;" />
-                  <img v-if="!photo" src="https://image.flaticon.com/icons/svg/2038/2038263.svg" alt="">
+                  <img
+                    v-if="!photo"
+                    src="https://image.flaticon.com/icons/svg/2038/2038263.svg"
+                    alt
+                  />
                 </a>
               </div>
               <div class="col-md-4">
@@ -28,7 +32,7 @@
                   class="btn btn-secondary tm-btn-search"
                 >hotel information</button>
               </div>
-              <div class="col-md-4 ">
+              <div class="col-md-4">
                 <p>reviews {{num_reviews}}</p>
                 <p>votes {{helpful_votes}}</p>
                 <p class="tm-color-parraf">PRICE FROM {{price}}</p>
@@ -46,7 +50,6 @@
 </template>
 
 <script>
-
 export default {
   name: "HotelBox",
   props: [
