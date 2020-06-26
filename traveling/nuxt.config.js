@@ -33,7 +33,6 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@plugins/filters.js',
     { src: '@/plugins/vue-youtube.js', ssr: false },
   ],
   /*

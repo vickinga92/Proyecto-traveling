@@ -37,7 +37,7 @@
                     <li class="nav-item" v-else>
                       <nuxt-link to="/login" class="nav-link text-success">LOGIN</nuxt-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!isAuth">
                       <nuxt-link to="/register" class="nav-link text-success">SING IN</nuxt-link>
                     </li>
                   </ul>

@@ -157,36 +157,35 @@ export const mutations = {
   },
   setHotels(state, hotels) {
 
-    hotels.filter(hotel => hotel.price !== undefined &&
-      hotel.photo.images.medium.url !== undefined)
+    hotels.filter(hotel => hotel.price == undefined &&
+      hotel.photo.images.medium.url == undefined)
 
     state.hotels = hotels
     var newPrice = []
-    // comprobar que images existe, si no exite url por defecto
-    hotels.forEach(hotel => {
 
-      if(!hotel.photo.images.medium.url){
-        hotel.photo.images.medium.url ="https://image.flaticon.com/icons/svg/2038/2038263.svg"
-      }
+    hotels.forEach(hotel => {
       newPrice = hotel.price.split("-")
       newPrice[0].replace("€", "").trim()
-      hotel.price = newPrice
-      hotels.filter_price = newPrice[0]
+      hotel.price = newPrice[0]
     });
   },
-
   setHotelsFiltered(state, payload) {
     console.log(payload.filterSelected)
-    console.log(state.hotels.filter_price)
     if (payload.filterSelected == "Ascendent") {
+
       let priceFilteredAsc = state.hotels.sort((a, b) => {
-        return a.filter_price - b.filter_price
+        if (a.price !== undefined && b.price !== undefined) {
+          return parseInt(a.price.replace('€', '').trim()) - parseInt(b.price.replace('€', '').trim())
+        }
       })
       return priceFilteredAsc
     }
+
     if (payload.filterSelected == "Descendent") {
       let priceFilteredDesc = state.hotels.sort(function (a, b) {
-        return b.filter_price - a.filter_price;
+        if (a.price !== undefined && b.price !== undefined) {
+        return parseInt(b.price.replace('€', '').trim()) - parseInt(a.price.replace('€', '').trim())
+        }
       });
       return priceFilteredDesc
     }

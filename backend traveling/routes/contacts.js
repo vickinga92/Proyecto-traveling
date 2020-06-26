@@ -33,7 +33,7 @@ router.route('/contacts')
         _id: newContact.user.uid
       }
       console.log(messageInfo)
-      dbFirebase.firestore.collection('contacts').push(messageInfo);
+      dbFirebase.firestore.collection('Contact').push(messageInfo);
       res.send('received')
 
     } catch (e) {

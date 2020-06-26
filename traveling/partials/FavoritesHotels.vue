@@ -30,7 +30,7 @@
               <div class="col-md-4">
                 <p>reviews {{num_reviews}}</p>
                 <p>votes {{helpful_votes}}</p>
-                <p class="tm-color-parraf">PRICE {{price}}</p>
+                <p class="tm-color-parraf">PRICE FROM {{price}}</p>
                 <button
                   @click.prevent="deleteFavorite"
                   class="btn btn-primary tm-btn-search"
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import filters from "@/plugins/filters";
 export default {
   name: "FavoritesHotels",
   props: [

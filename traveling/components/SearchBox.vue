@@ -216,7 +216,7 @@ export default {
         location_string: item.location_string,
         num_reviews: item.num_reviews,
         helpful_votes: item.photo.helpful_votes,
-        price: item.price
+        price: item.price,
       };
       console.log("<<<<<<<", newFavorite);
       try {
@@ -238,7 +238,7 @@ export default {
         });
         this.$router.push("/login");
       }
-    }
+    },
   },
   components: {
     HotelBox,
