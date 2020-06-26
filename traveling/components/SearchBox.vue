@@ -31,6 +31,7 @@
                     />
                   </div>
                   <div class="form-group tm-form-element tm-form-element-50">
+                    <i class="fa fa-calendar-check-o fa-2x tm-form-element-icon"></i>
                     <input
                       v-model="search.nights"
                       name="nights"
@@ -43,6 +44,7 @@
                 </div>
                 <div class="form-row tm-search-form-row">
                   <div class="form-group tm-form-element tm-form-element-2">
+                    <i class="fa fa-user fa-2x tm-form-element-icon"></i>
                     <select
                       name="adult"
                       class="form-control tm-select"
@@ -50,13 +52,14 @@
                       v-model="search.adultsSelected"
                     >
                       <option value>
-                        <i class="fa fa-2x fa-user tm-form-element-icon"></i> Adults
+                        <i class="fa fa-2x fa-user fa-2x tm-form-element-icon"></i> Adults
                       </option>
                       <option v-for="item in listNumber" :key="item.id">{{item.number}}</option>
                     </select>
                   </div>
 
                   <div class="form-group tm-form-element tm-form-element-2">
+                    <i class="fa fa-bed fa-2x tm-form-element-icon"></i>
                     <select
                       name="Rooms"
                       class="form-control tm-select"
@@ -64,7 +67,7 @@
                       v-model="search.roomsSelected"
                     >
                       <option value>
-                        <i class="fa fa-2x fa-bed tm-form-element-icon"></i> Rooms
+                        Rooms
                       </option>
                       <option v-for="item in listNumber" :key="item.id">{{item.number}}</option>
                     </select>
@@ -108,7 +111,6 @@ import Swal from "sweetalert2";
 import Carousel from "@/components/Carousel";
 import HotelBox from "@/partials/HotelBox";
 import FilterPriceHotel from "@/components/FilterPriceHotel";
-
 
 export default {
   name: "SearchBox",
@@ -172,7 +174,7 @@ export default {
   computed: {
     hotels() {
       return this.$store.state.hotels;
-    },
+    }
   },
   methods: {
     city() {
@@ -216,7 +218,7 @@ export default {
         location_string: item.location_string,
         num_reviews: item.num_reviews,
         helpful_votes: item.photo.helpful_votes,
-        price: item.price,
+        price: item.price
       };
       console.log("<<<<<<<", newFavorite);
       try {
@@ -229,7 +231,7 @@ export default {
 
         this.$router.push("/myfavorites");
       } catch (err) {
-        console.log(err)
+        console.log(err);
         console.log("no se conecta", err.response.data.error);
         Swal.fire({
           icon: "error",
@@ -238,12 +240,12 @@ export default {
         });
         this.$router.push("/login");
       }
-    },
+    }
   },
   components: {
     HotelBox,
     FilterPriceHotel,
-    Carousel,
+    Carousel
   }
 };
 </script>
