@@ -90,10 +90,11 @@ body {
 }
 
 a, button { transition: all 0.3s ease;}
-a:hover,
+a:hover:active,
 a:focus {
 	text-decoration: none;
-	outline: none;
+  outline: none;
+  background-color: #ee5057;
 }
 
 .tm-position-relative { position: relative; }

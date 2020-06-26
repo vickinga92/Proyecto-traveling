@@ -5,11 +5,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-6">
-          <h3 class="text-center ttm-bg-dark-blue tm-article-title-1">FILTERS YOURS HOTELS BY PRICE</h3>
+          <h3 class="text-center ttm-bg-dark-blue tm-article-title-1">FILTERS YOURS HOTELS BY PRICE.....</h3>
         </div>
         <div class="col-md-6">
           <select v-model="filterSelected" @change="hotelsFiltered" class="custom-select">
-            <option selected>Price filters...</option>
+            <option value="undefined" disabled>Price filters...</option>
             <option value="Ascendent">Ascendent</option>
             <option value="Descendent">Descendent</option>
           </select>
