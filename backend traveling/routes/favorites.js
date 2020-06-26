@@ -44,16 +44,14 @@ router.route('/favorites/filterDesc')
 
     filters = { userId: req.user._id }
     filterPriceDesc = { price: -1 }
-
     let priceDesc = await Favorites.find(filters).sort(filterPriceDesc).exec()
 
     res.json(priceDesc)
-
   })
 router.route('/favorites/filterAsc')
   .get(mustAuth(), async (req, res) => {
     filters = { userId: req.user._id }
-    filterPriceAsc = { price: 1 }
+    let filterPriceAsc = { price: 1 }
     let priceAsc = await Favorites.find(filters).sort(filterPriceAsc).exec()
 
     res.json(priceAsc)
