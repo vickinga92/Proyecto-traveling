@@ -27,7 +27,9 @@ export default {
         { id: 3, videoId: "Rupwbe2pimI" },
         { id: 4, videoId: "JxubFhmCRHI" },
         { id: 5, videoId: "CBTduf9urKY" },
-        { id: 6, videoId: "OjDYCNJ5QlU" }
+        { id: 6, videoId: "OjDYCNJ5QlU" },
+        { id: 7, videoId: "E3jhbnXF0f5" },
+
       ]
     };
   }
